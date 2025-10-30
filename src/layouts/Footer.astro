@@ -1,0 +1,301 @@
+---
+// Компонент Footer
+import telegramIcon from '../assets/telegram.svg';
+import vkIcon from '../assets/vk.svg';
+import RTIcon from '../assets/RT.svg';
+import RFIcon from '../assets/RF.svg';
+
+
+---
+<footer class="footer">
+  <div class="footer__container container">
+    
+    <!-- Левая колонка - О больнице -->
+    <div class="footer__column">
+      <div class="footer__title">О БОЛЬНИЦЕ</div>
+      <nav class="footer__nav">
+        <a href="#" class="footer__link">Службы и отделения</a>
+        <a href="#" class="footer__link">Руководство</a>
+        <a href="#" class="footer__link">Больница сегодня</a>
+        <a href="#" class="footer__link">Партнеры</a>
+        <a href="#" class="footer__link">Новости</a>
+        <a href="#" class="footer__link">Документы</a>
+      </nav>
+    </div>
+
+    <!-- Вторая колонка - Специалистам -->
+    <div class="footer__column">
+      <div class="footer__title">СПЕЦИАЛИСТАМ</div>
+      <nav class="footer__nav">
+        <a href="#" class="footer__link">Вакансии</a>
+        <a href="#" class="footer__link">Центр Компетенций</a>
+        <a href="#" class="footer__link">Система менеджмента качества</a>
+      </nav>
+      
+      <div class="footer__title footer__title--spacing">ПАЦИЕНТАМ</div>
+      <nav class="footer__nav">
+        <a href="#" class="footer__link">Как попасть на прием</a>
+        <a href="#" class="footer__link">Беременность и роды</a>
+        <a href="#" class="footer__link">Медицинский туризм</a>
+        <a href="#" class="footer__link">Диспансеризация</a>
+        <a href="#" class="footer__link">Личный кабинет</a>
+      </nav>
+    </div>
+
+    <!-- Третья колонка - Контакты -->
+    <div class="footer__column">
+      <div class="footer__title">КОНТАКТ-ЦЕНТР</div>
+      <div class="footer__contacts">
+        <a href="tel:+78432312002" class="footer__phone">+7 (843) 231-20-02</a>
+        <a href="tel:+78432312003" class="footer__phone">+7 (843) 231-20-03</a>
+        <div class="footer__schedule">пн-пт 7.00-18.00</div>
+      </div>
+      
+      <div class="footer__title footer__title--spacing">ПЛАТНЫЕ УСЛУГИ</div>
+      <div class="footer__contacts">
+        <a href="tel:+78432312090" class="footer__phone">+7 (843) 231-20-90</a>
+        <a href="tel:+79270457974" class="footer__phone">+7 (927) 045-79-74</a>
+        <div class="footer__schedule">пн-пт 8:00 - 18:00, сб 8:00 - 16:00</div>
+      </div>
+    </div>
+
+    <!-- Четвертая колонка - Приемная -->
+    <div class="footer__column">
+      <div class="footer__title">ПРИЕМНАЯ ГЛАВНОГО ВРАЧА</div>
+      <div class="footer__contacts">
+        <a href="tel:88432316595" class="footer__phone">8 (843) 231-65-95</a>
+        <a href="mailto:mz.rkb@tatar.ru" class="footer__email">mz.rkb@tatar.ru</a>
+      </div>
+      
+      <div class="footer__title footer__title--spacing">СОЦСЕТИ</div>
+      <div class="footer__social">
+        <a href="#" class="social-icon">
+          <!-- VK Icon -->
+          <img src={vkIcon.src} alt="VK" />
+        </a>
+        <a href="#" class="social-icon">
+          <!-- Telegram Icon -->
+          <img src={telegramIcon.src} alt="Telegram" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Нижняя часть футера -->
+  <div class="footer__bottom">
+    <div class="footer__bottom-container container">
+      <div class="footer__copyright">
+        © 2025 ГАУЗ «Республиканская Клиническая больница»
+      </div>
+      
+      <div class="footer__ministries">
+        <div class="footer__ministry">
+            <img src={RTIcon.src} />
+          Министерство здравоохранения<br>Республики Татарстан
+        </div>
+        <div class="footer__ministry">
+            <img src={RFIcon.src} />
+          Министерство здравоохранения<br>Российской Федерации
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<style lang="scss">
+  .footer {
+    width: 100%;
+    background: white;
+    border-top: 1px solid $color-border;
+    padding-top: 40px;
+
+    &__container {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+      gap: 40px;
+      padding-bottom: 40px;
+    }
+
+    &__column {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &__title {
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-primary;
+      font-weight: 600;
+      margin-bottom: 16px;
+
+      &--spacing {
+        margin-top: 32px;
+      }
+    }
+
+    &__nav {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    &__link {
+      font-family: $font-family-primary;
+      font-size: $font-size-md;
+      color: $color-text-primary;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &__contacts {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__phone {
+      font-family: $font-family-primary;
+      font-size: $font-size-md;
+      color: $color-text-primary;
+      font-weight: 500;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &__email {
+      font-family: $font-family-primary;
+      font-size: $font-size-md;
+      color: $color-text-primary;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &__schedule {
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-text-secondary;
+    }
+
+    &__social {
+      display: flex;
+      gap: 16px;
+    }
+
+    .social-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+      }
+
+      svg {
+        width: 100%;
+        height: 100%;
+      }
+    }
+
+    &__bottom {
+      border-top: 1px solid rgba(15, 23, 42, 0.12);
+      padding: 20px 0;
+    }
+
+    &__bottom-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    &__copyright {
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-text-secondary;
+    }
+
+    &__ministries {
+      display: flex;
+      text-align: left;
+      gap: 40px;
+    }
+
+    &__ministry {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-text-primary;
+      text-align: left;
+      line-height: 1.4;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .footer__container {
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .footer__container {
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    .footer__bottom-container {
+      flex-direction: column;
+      gap: 16px;
+      text-align: center;
+    }
+
+    .footer__ministries {
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .footer__ministry {
+      text-align: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .footer {
+      padding-top: 24px;
+    }
+
+    .footer__container {
+      gap: 20px;
+    }
+
+    .footer__title {
+      margin-bottom: 12px;
+    }
+
+    .footer__title--spacing {
+      margin-top: 24px;
+    }
+
+    .footer__nav {
+      gap: 8px;
+    }
+  }
+</style>

@@ -1,0 +1,993 @@
+---
+import Logo from "./Logo.astro";
+import TelegramIcon from '../components/icons/telegram.astro';
+import VkIcon from '../components/icons/vk.astro';
+import EyeIcon from '../components/icons/eye.astro';
+import FaqIcon from '../components/icons/faq.astro';
+import MapIcon from '../components/icons/map.astro';
+
+// Компонент Header с меню
+---
+<div>
+<header class="header" id="header">
+  <div class="header__container container">
+    <!-- Логотип -->
+    <a class="header__logo" href="/">
+      <Logo class="header__logo__svg"/>
+    </a>
+
+    <!-- Контактная информация -->
+    <div class="header__contacts">
+      <!-- Контакт-центр -->
+      <div class="contact-item">
+        <div class="contact-item__label">КОНТАКТ-ЦЕНТР</div>
+        <a href="tel:+78432312002" class="contact-item__phone">+7 (843) 231-20-02</a>
+        <div class="contact-item__schedule">пн-пт 7:00-18:00</div>
+      </div>
+
+      <!-- Платные услуги 1 -->
+      <div class="contact-item">
+        <div class="contact-item__label">ПЛАТНЫЕ УСЛУГИ</div>
+        <a href="tel:+78432312090" class="contact-item__phone">+7 (843) 231-20-90</a>
+        <div class="contact-item__schedule">пн-пт 8:00-18:00, сб 8:00-16:00</div>
+      </div>
+
+      <!-- Платные услуги 2 -->
+      <div class="contact-item">
+        <div class="contact-item__label">ПЛАТНЫЕ УСЛУГИ</div>
+        <a href="tel:+79270457974" class="contact-item__phone">+7 (927) 045-79-74</a>
+        <div class="contact-item__schedule">пн-пт 8:00-18:00, сб 8:00-16:00</div>
+      </div>
+    </div>
+
+    <!-- Правая часть -->
+    <div class="header__right">
+      <!-- Языковой переключатель -->
+      <div class="language-switcher" id="languageSwitcher">
+        <div class="language-flag">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+            <mask id="flagMask" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+              <circle cx="10" cy="10" r="10" fill="#D9D9D9"/>
+            </mask>
+            <g mask="url(#flagMask)">
+              <rect width="20" height="6.667" fill="white"/>
+              <rect y="6.667" width="20" height="6.667" fill="#1D6ACB"/>
+              <rect y="13.333" width="20" height="6.667" fill="#D52B1E"/>
+            </g>
+          </svg>
+        </div>
+        <span class="language-text">Русский</span>
+        <svg class="language-arrow" width="8" height="8" viewBox="0 0 8 8" fill="none">
+          <path d="M2 2L4 4L6 2" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+
+        <!-- Выпадающий блок языков -->
+        <div class="language-dropdown" id="languageDropdown">
+          <div class="language-option" data-lang="ru">
+            <div class="language-option__flag">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <mask id="flagMaskRu" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                  <circle cx="10" cy="10" r="10" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#flagMaskRu)">
+                  <rect width="20" height="6.667" fill="white"/>
+                  <rect y="6.667" width="20" height="6.667" fill="#1D6ACB"/>
+                  <rect y="13.333" width="20" height="6.667" fill="#D52B1E"/>
+                </g>
+              </svg>
+            </div>
+            <span class="language-option__text">Русский</span>
+          </div>
+          <div class="language-option" data-lang="tt">
+            <div class="language-option__flag">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <mask id="flagMaskTt" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                  <circle cx="10" cy="10" r="10" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#flagMaskTt)">
+                  <rect width="20" height="10" fill="#00B2A9"/>
+                  <rect y="10" width="20" height="10" fill="#E0001B"/>
+                </g>
+              </svg>
+            </div>
+            <span class="language-option__text">Татарский</span>
+          </div>
+          <div class="language-option" data-lang="en">
+            <div class="language-option__flag">
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <mask id="flagMaskEn" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
+                  <circle cx="10" cy="10" r="10" fill="#D9D9D9"/>
+                </mask>
+                <g mask="url(#flagMaskEn)">
+                  <rect width="20" height="20" fill="#012169"/>
+                  <path d="M0 0L20 20M20 0L0 20" stroke="white" stroke-width="2"/>
+                  <path d="M8 0H12V8H20V12H12V20H8V12H0V8H8V0Z" fill="white"/>
+                  <path d="M9 0H11V9H20V11H11V20H9V11H0V9H9V0Z" fill="#C8102E"/>
+                </g>
+              </svg>
+            </div>
+            <span class="language-option__text">English</span>
+          </div>
+        </div>
+      </div>
+
+
+      <!-- Кнопка меню -->
+      <button class="menu-button active" id="menuToggle">
+        <div class="menu-dots">
+          <div class="dot-row">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="dot-row">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+          <div class="dot-row">
+            <span class="dot"></span>
+            <span class="dot"></span>
+            <span class="dot"></span>
+          </div>
+        </div>
+        <span class="menu-text">Меню</span>
+      </button>
+
+      <button class="menu-button" id="menuClose">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        <span class="menu-text">Меню</span>
+      </button>
+
+      
+
+    </div>
+  </div>
+</header>
+
+<!-- Меню -->
+<div class="menu-overlay" id="menuOverlay">
+    <svg class="menu-bg" width="385" height="242" viewBox="0 0 385 242" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="126" cy="259" r="259" fill="white" fill-opacity="0.04"/>
+  </svg>
+  <div class="menu-container">
+    <div class="menu-content">
+      <!-- Левая колонка - О БОЛЬНИЦЕ -->
+      <div class="menu-column">
+        <h3 class="menu-category">О БОЛЬНИЦЕ</h3>
+        <div class="menu-divider"></div>
+        <ul class="menu-list">
+          <li><a href="#" class="menu-link">Службы и отделения</a></li>
+          <li><a href="#" class="menu-link">Руководство</a></li>
+          <li><a href="#" class="menu-link">Больница сегодня</a></li>
+          <li><a href="#" class="menu-link">Партнеры</a></li>
+          <li><a href="#" class="menu-link">Новости</a></li>
+          <li><a href="#" class="menu-link">Нормативные документы</a></li>
+        </ul>
+      </div>
+
+      <!-- Центральная колонка - СПЕЦИАЛИСТАМ и ПАЦИЕНТАМ -->
+      <div class="menu-column">
+        <h3 class="menu-category">СПЕЦИАЛИСТАМ</h3>
+        <div class="menu-divider"></div>
+        <ul class="menu-list">
+          <li><a href="#" class="menu-link">Вакансии</a></li>
+          <li><a href="#" class="menu-link">Центр Компетенций</a></li>
+          <li><a href="#" class="menu-link">Система менеджмента качества</a></li>
+        </ul>
+
+        <h3 class="menu-category menu-category-spacing">ПАЦИЕНТАМ</h3>
+        <div class="menu-divider"></div>
+        <ul class="menu-list">
+          <li><a href="#" class="menu-link">Как попасть на прием</a></li>
+          <li><a href="#" class="menu-link">Беременность и роды</a></li>
+          <li><a href="#" class="menu-link">Медицинский туризм</a></li>
+          <li><a href="#" class="menu-link">Диспансеризация</a></li>
+          <li><a href="#" class="menu-link">Личный кабинет</a></li>
+          <li><a href="#" class="menu-link">Правила и распорядки</a></li>
+        </ul>
+      </div>
+
+      <!-- Правая колонка - КОНТАКТЫ и виджеты -->
+      <div class="menu-column menu-column-wide">
+        <div class="menu-column__card">
+             <svg class="menu-column__card__bg" width="284" height="291" viewBox="0 0 284 291" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="257.5" cy="33.5" r="257.5" fill="white" fill-opacity="0.02"/>
+        </svg>
+        <h3 class="menu-category">КОНТАКТЫ</h3>
+        <div class="menu-divider"></div>
+        
+        <div class="contact-widgets">
+          <!-- Контакт центр -->
+          <div class="contact-widget">
+            <div class="contact-widget__label">КОНТАКТ ЦЕНТР</div>
+            <div class="contact-widget__phones">
+              <a href="tel:+78432312002" class="contact-widget__phone">+7 (843) 231-20-02</a>
+              <a href="tel:+78432312003" class="contact-widget__phone">+7 (843) 231-20-03</a>
+            </div>
+            <div class="contact-widget__schedule">пн-пт 7.00-18.00</div>
+          </div>
+
+          <!-- Приемная главного врача -->
+          <div class="contact-widget">
+            <div class="contact-widget__label">ПРИЕМНАЯ ГЛАВНОГО ВРАЧА</div>
+            <div class="contact-widget__phones">
+              <a href="tel:+78432316595" class="contact-widget__phone">8 (843) 231-65-95</a>
+            </div>
+            <div class="contact-widget__email">mz.rkb@tatar.ru</div>
+          </div>
+
+          <!-- Платные услуги -->
+          <div class="contact-widget">
+            <div class="contact-widget__label">ПЛАТНЫЕ УСЛУГИ</div>
+            <div class="contact-widget__phones">
+              <a href="tel:+78432312090" class="contact-widget__phone">+7 (843) 231-20-90</a>
+              <a href="tel:+79270457974" class="contact-widget__phone">+7 (927) 045-79-74</a>
+            </div>
+            <div class="contact-widget__schedule">пн-пт 8:00 - 18:00, сб 8:00 - 16:00</div>
+          </div>
+
+          <!-- Соцсети -->
+          <div class="contact-widget">
+            <div class="contact-widget__label">СОЦСЕТИ</div>
+            <div class="social-icons">
+              <a href="#" class="social-icon">
+                <TelegramIcon  />
+              </a>
+              <a href="#" class="social-icon">
+                <VkIcon />
+              </a>
+            </div>
+          </div>
+        </div>
+
+       
+
+
+        </div>
+
+        <!-- Виджеты внизу -->
+        <div class="menu-widgets">
+          <!-- Виджет вопроса -->
+          <a href="/" class="widget widget-question">
+            <div class="widget-icon">
+                <FaqIcon />
+            </div>
+            <div class="widget-text">
+              <div>Остались вопросы?</div>
+              <div>Напишите нам</div>
+            </div>
+        </a>
+
+          <!-- Виджет карты -->
+          <a  href="/" class="widget widget-map">
+            <div class="widget-icon">
+              <MapIcon />
+            </div>
+            <div class="widget-text">Карта РКБ</div>
+        </a>
+
+          <!-- Виджет доступности -->
+          <a  href="/" class="widget widget-accessibility">
+            <div class="widget-icon">
+              <EyeIcon />
+            </div>
+            <div class="widget-text">Версия для слабовидящих</div>
+        </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+</div>
+</div>
+<script>
+  // Обработка открытия/закрытия меню
+  document.addEventListener('DOMContentLoaded', function() {
+    const menuToggle = document.getElementById('menuToggle');
+    const menuOverlay = document.getElementById('menuOverlay');
+    const menuClose = document.getElementById('menuClose');
+    const header = document.getElementById('header');
+    
+    if (menuToggle && menuOverlay && menuClose) {
+      menuToggle.addEventListener('click', function() {
+        menuOverlay.classList.add('active');
+        menuClose.classList.add('active');
+        header.classList.add('active');
+        menuToggle.classList.remove('active');
+        
+        document.body.style.overflow = 'hidden';
+        
+      });
+      
+      menuClose.addEventListener('click', function() {
+        menuOverlay.classList.remove('active');
+        menuClose.classList.remove('active');
+        header.classList.remove('active');
+        menuToggle.classList.add('active');
+
+        document.body.style.overflow = '';
+      });
+      
+      // Закрытие по клику вне меню
+      menuOverlay.addEventListener('click', function(e) {
+        if (e.target === menuOverlay) {
+          menuOverlay.classList.remove('active');
+           menuClose.classList.remove('active');
+           header.classList.remove('active');
+           menuToggle.classList.add('active');
+          document.body.style.overflow = '';
+        }
+      });
+      
+      // Закрытие по ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && menuOverlay.classList.contains('active')) {
+          menuOverlay.classList.remove('active');
+           menuClose.classList.remove('active');
+           header.classList.remove('active');
+           menuToggle.classList.add('active');
+          document.body.style.overflow = '';
+        }
+      });
+
+      
+    }
+
+    // Обработка языкового переключателя
+    const languageSwitcher = document.getElementById('languageSwitcher');
+    const languageDropdown = document.getElementById('languageDropdown');
+    const languageOptions = document.querySelectorAll('.language-option');
+
+    if (languageSwitcher && languageDropdown) {
+      // Открытие/закрытие выпадающего списка
+      languageSwitcher.addEventListener('click', function(e) {
+        e.stopPropagation();
+        languageDropdown.classList.toggle('active');
+        languageSwitcher.classList.toggle('active');
+      });
+
+      // Выбор языка
+      languageOptions.forEach(option => {
+        option.addEventListener('click', function() {
+          const lang = this.getAttribute('data-lang');
+          const text = this.querySelector('.language-option__text').textContent;
+          const flagSvg = this.querySelector('.language-option__flag svg').cloneNode(true);
+          
+          // Обновляем основной переключатель
+          document.querySelector('.language-text').textContent = text;
+          document.querySelector('.language-flag').innerHTML = '';
+          document.querySelector('.language-flag').appendChild(flagSvg);
+          
+          // Закрываем выпадающий список
+          languageDropdown.classList.remove('active');
+          languageSwitcher.classList.remove('active');
+          
+          // Здесь можно добавить логику смены языка
+          console.log('Selected language:', lang);
+        });
+      });
+
+      // Закрытие выпадающего списка при клике вне его
+      document.addEventListener('click', function(e) {
+        if (!languageSwitcher.contains(e.target)) {
+          languageDropdown.classList.remove('active');
+          languageSwitcher.classList.remove('active');
+        }
+      });
+
+      // Закрытие по ESC
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+          languageDropdown.classList.remove('active');
+          languageSwitcher.classList.remove('active');
+        }
+      });
+    }
+  });
+</script>
+
+<style lang="scss">
+   
+  .header {
+    width: 100%;
+    height: $header-height;
+    background: white;
+    border-bottom: 1px solid $color-border;
+    padding: 12px;
+    &.active {
+        border-bottom: 1px solid $color-primary;
+        background: $color-primary;
+        color: white;
+        .language-text,
+        .contact-item__label,
+        .contact-item__phone,
+        .contact-item__schedule,
+        .language-arrow,
+        .header__logo {
+            color: white;
+        }
+
+        .language-switcher {
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 10000;
+            &.active {
+                background: rgba(255, 255, 255, 0.1);
+            }
+
+        }
+      
+        .language-dropdown {
+            background: $color-primary-dark-2;
+            border: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .language-option__text {
+            color: white;
+        }
+        
+        .language-option:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+    }
+
+    &__container {
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    &__logo {
+      flex-shrink: 0;
+      color: $color-text-secondary;
+      
+      img {
+        display: block;
+        width: 224px;
+        height: 64px;
+      }
+    }
+
+    &__contacts {
+      display: flex;
+      gap: 40px;
+      flex: 1;
+      justify-content: center;
+    }
+
+    &__right {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+  }
+
+  .contact-item {
+    // text-align: center;
+
+    &__label {
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-primary;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    &__phone {
+      font-family: $font-family-primary;
+      font-size: $font-size-md;
+      color: $color-text-primary;
+      font-weight: 500;
+      margin-bottom: 2px;
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    &__schedule {
+      font-family: $font-family-primary;
+      font-size: $font-size-xs;
+      color: $color-text-secondary;
+    }
+  }
+
+.language-switcher {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+    position: relative;
+    cursor: pointer;
+    min-width: 140px;
+
+    &:hover {
+      background-color: $color-bg-hover;
+    }
+
+    &.active {
+      background-color: $color-bg-hover;
+      
+      .language-arrow {
+        transform: rotate(180deg);
+      }
+    }
+
+    .language-flag {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    .language-text {
+      font-size: $font-size-sm;
+      color: $color-text-primary;
+    }
+
+    .language-arrow {
+      color: $color-text-primary;
+      transition: transform 0.2s ease;
+      text-align: left;
+    }
+  }
+
+  .language-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    border: 1px solid $color-border;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: $z-index-dropdown;
+    margin-top: 4px;
+    overflow: hidden;
+
+    &.active {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+  }
+
+  .language-option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: $color-bg-light;
+    }
+
+    &__flag {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    &__text {
+      font-size: $font-size-sm;
+      color: $color-text-primary;
+      white-space: nowrap;
+    }
+  }
+
+  .menu-button {
+    display: none;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    background: $color-bg-light;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    color: $color-primary;
+    &.active {
+        display: flex;
+    }
+
+    &:hover {
+      background-color: darken($color-bg-light, 5%);
+    }
+
+    .menu-dots {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dot-row {
+      display: flex;
+      gap: 4px;
+    }
+
+    .dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background-color: $color-primary;
+    }
+
+    .menu-text {
+      font-family: $font-family-primary;
+      font-size: $font-size-sm;
+      color: $color-primary;
+      font-weight: 500;
+    }
+  }
+
+  /* Стили для меню */
+  .menu-overlay {
+    position: fixed;
+    top: $header-height;
+    left: 0;
+    width: 100%;
+    height: calc(100% - $header-height);
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: $z-index-modal;
+    opacity: 0;
+    visibility: hidden;
+    transition: all $transition-normal;
+    background: $color-primary;
+    &.active {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  .menu-container {
+   
+    
+    width: 100%;
+    max-width: 1440px;
+    height: 100%;
+    margin: auto;
+    // background: $color-primary;
+    transform: translateY(100%);
+    transition: transform $transition-normal;
+    overflow-y: auto;
+
+    .menu-overlay.active & {
+      transform: translateY(0);
+    }
+  }
+
+  .menu-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 24px;
+  }
+
+  .menu-close {
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: $border-radius-md;
+    transition: background-color $transition-fast;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .menu-content {
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr 2fr;
+    gap: 60px;
+    padding: 36px 60px 60px;
+    max-height: calc(100vh - 100px);
+    overflow-y: auto;
+  }
+
+  .menu-bg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+
+  .menu-column {
+    
+    &-wide {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    &__card {
+        padding: 0px 16px 24px 16px;
+        background: $color-primary-dark-2;
+        border-radius: $border-radius-xl;
+        position: relative;
+        &__bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+    }
+  }
+
+  .menu-category {
+    font-family: $font-family-primary;
+    font-size: $font-size-xl;
+    color: rgba(255, 255, 255, 0.48);
+    font-weight: $font-weight-normal;
+    margin-bottom: 16px;
+    margin-top: 25px;
+   
+
+    &-spacing {
+      margin-top: 40px;
+    }
+  }
+
+  .menu-divider {
+    height: 1px;
+    background: rgba(255, 255, 255, 0.16);
+    margin-bottom: 24px;
+  }
+
+  .menu-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .menu-link {
+    display: block;
+    font-family: $font-family-primary;
+    font-size: $font-size-xl;
+    color: white;
+    text-decoration: none;
+    padding: 12px 0;
+    transition: opacity $transition-fast;
+
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+
+  /* Контактные виджеты */
+  .contact-widgets {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    gap: 32px;
+  }
+
+  .contact-widget {
+   
+    &__label {
+      font-family: $font-family-primary;
+      font-size: $font-size-sm;
+      color: white;
+      margin-bottom: 12px;
+      opacity: 0.8;
+    }
+
+    &__phones {
+      font-family: $font-family-primary;
+      font-size: $font-size-xl;
+      color: white;
+      margin-bottom: 8px;
+    }
+
+    &__phone {
+      display: block;
+      color: white;
+      text-decoration: none;
+      transition: opacity $transition-fast;
+
+      &:hover {
+        opacity: 0.8;
+      }
+    }
+
+    &__schedule,
+    &__email {
+      font-family: $font-family-primary;
+      font-size: $font-size-sm;
+      color: white;
+      opacity: 0.8;
+    }
+  }
+
+  .social-icons {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+  }
+
+  .social-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 50%;
+    transition: background-color $transition-fast;
+    color: white;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+  }
+
+  /* Виджеты внизу */
+  .menu-widgets {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    
+  }
+
+  .widget {
+    display: flex;
+    
+    gap: 16px;
+    padding: 24px;
+    background: #164F9A;
+    border-radius: $border-radius-lg;
+    color: white;
+    text-decoration: none;
+    transition: background-color $transition-fast;
+
+    &-accessibility {
+        grid-column: span 2;
+        align-items: center;
+    }
+
+    &-question,
+    &-map {
+        flex-direction: column;
+        .widget-text {
+            margin-top: auto;
+        }
+
+    }
+
+    &:hover {
+      background: lighten(#164F9A, 5%);
+    }
+
+    &-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      background: white;
+      border-radius: $border-radius-lg;
+      color: #164F9A;
+      font-weight: $font-weight-bold;
+      font-size: $font-size-lg;
+      flex-shrink: 0;
+    }
+
+    &-text {
+      font-family: $font-family-primary;
+      font-size: $font-size-lg;
+      line-height: $line-height-tight;
+      
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .header__contacts {
+      gap: 20px;
+    }
+    
+    .menu-content {
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+    }
+    
+    .menu-column-wide {
+      grid-column: 1 / -1;
+    }
+    
+    .contact-widgets {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 1024px) {
+    .header__contacts {
+      display: none;
+    }
+    
+    .menu-content {
+      grid-template-columns: 1fr;
+      padding: 24px 24px 40px;
+    }
+    
+    .contact-widgets {
+      grid-template-columns: 1fr;
+    }
+    
+    .menu-widgets {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .language-switcher {
+        min-width: auto;
+    }
+    .header {
+        height: 60px;
+        padding: 4px 12px;
+        &__logo {
+            padding-top: 4px;
+        }
+        
+    }
+    .menu-overlay {
+        top: 60px;
+        height: calc(100% - 60px);
+    }
+    .menu-text {
+      display: none;
+    }
+
+    .language-text {
+      display: none;
+    }
+    
+    .header__container {
+      padding: 0;
+    }
+    
+    .menu-content {
+      gap: 32px;
+      max-height: calc(100vh - 60px);
+    }
+
+    
+    .menu-category {
+      font-size: $font-size-lg;
+    }
+    
+    .menu-link {
+      font-size: $font-size-md;
+      padding: 4px 0;
+    }
+
+    .language-text {
+      display: none;
+    }
+    
+    .language-dropdown {
+      left: -50px;
+      right: -50px;
+      min-width: 140px;
+    }
+  }
+</style>
