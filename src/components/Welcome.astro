@@ -177,7 +177,7 @@ import EmployeeCarousel from './EmployeeCarousel.astro';
     }
 
     &__title {
-      font-family: $font-family-primary;
+      
       font-size: 56px;
       font-weight: bold;
       line-height: 1.1;
@@ -185,21 +185,21 @@ import EmployeeCarousel from './EmployeeCarousel.astro';
     }
 
     &__name {
-      font-family: $font-family-primary;
+      
       font-size: 24px;
       font-weight: bold;
       margin-bottom: 12px;
     }
 
     &__description {
-      font-family: $font-family-primary;
+      
       font-size: 20px;
       opacity: 0.9;
       line-height: 1.4;
     }
 
     &__position {
-      font-family: $font-family-primary;
+      
       font-size: 14px;
       opacity: 0.9;
       line-height: 1.4;
@@ -210,7 +210,7 @@ import EmployeeCarousel from './EmployeeCarousel.astro';
       background: rgba(255, 255, 255, 0.16);
       border-radius: 8px;
       padding: 8px 12px;
-      font-family: $font-family-primary;
+      
       font-size: 14px;
       margin-bottom: 16px;
     }
@@ -226,60 +226,59 @@ import EmployeeCarousel from './EmployeeCarousel.astro';
     padding: 40px 24px;
   }
 
-  @media (max-width: 1200px) {
-    .main-grid {
-	  padding-left: 16px;
-	  padding-right: 16px;
-      grid-template-columns: 1fr;
-      aspect-ratio: auto;
-    }
-
-    .grid-card--large {
-      min-height: 400px;
-      grid-column: span 1;
-    }
-
-    .grid-card--small {
-      min-height: 300px;
-    }
+  @media (max-width: $breakpoint-xl) {
+  .main-grid {
+    padding-left: 16px;
+    padding-right: 16px;
+    grid-template-columns: 1fr;
+    aspect-ratio: auto;
   }
 
- @media (max-width: 768px) {
-    .main-grid {
-      gap: 12px;
-      
-    }
-
-    .grid-card__content {
-      padding: 24px;
-    }
-
-    .grid-card__title {
-      font-size: 32px;
-    }
-
-    .grid-card__description {
-      font-size: 16px;
-    }
+  .grid-card--large {
+    min-height: 400px;
+    grid-column: span 1;
   }
 
-  @media (max-width: 480px) {
-    .grid-card__title {
-      font-size: 24px;
-    }
+  .grid-card--small {
+    min-height: 300px;
+  }
+}
 
-    .grid-card__name {
-      font-size: 20px;
-    }
+@media (max-width: $breakpoint-md) {
+  .main-grid {
+    gap: 12px;
+  }
 
-    .grid-card__description,
-    .grid-card__position {
-      font-size: 14px;
-    }
+  .grid-card__content {
+    padding: 24px;
+  }
 
-    .employee-badge {
-      font-size: 12px;
-      padding: 6px 10px;
-    }
+  .grid-card__title {
+    font-size: 32px;
+  }
+
+  .grid-card__description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .grid-card__title {
+    font-size: 24px;
+  }
+
+  .grid-card__name {
+    font-size: 20px;
+  }
+
+  .grid-card__description,
+  .grid-card__position {
+    font-size: 14px;
+  }
+
+  .employee-badge {
+    font-size: 12px;
+    padding: 6px 10px;
+  }
 }
 </style>

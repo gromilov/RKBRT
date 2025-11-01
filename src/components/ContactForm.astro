@@ -1,0 +1,202 @@
+---
+import InputField from './ui/InputField.astro';
+import SubmitButton from './ui/SubmitButton.astro';
+---
+
+<div class="contact-section">
+  <div class="contact-container">
+    <!-- Заголовок и описание -->
+    <div class="contact-info">
+      <h2 class="contact-title">Остались вопросы?<br>Свяжитесь с нами</h2>
+      <p class="contact-description">
+        Мы всегда готовы помочь вам разобраться в услугах нашей клиники. 
+        Свяжитесь с нами, и мы подскажем, к какому врачу лучше обратиться 
+        и как быстро записаться на приём.
+      </p>
+    </div>
+
+    <!-- Форма -->
+    <form class="contact-form">
+      <InputField 
+        label="ФИО"
+        name="name"
+        value="Дмитрий"
+        required
+      />
+      
+      <InputField 
+        label="Номер телефона"
+        name="phone"
+        value="8 800 555 35 35"
+        type="tel"
+        required
+      />
+      
+      <InputField 
+        label="Сообщение (необязательно)"
+        name="message"
+        type="textarea"
+        value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+
+      <!-- Чекбокс согласия -->
+      <div class="checkbox-group">
+        <input type="checkbox" id="consent" name="consent" required class="checkbox-input" />
+        <label for="consent" class="checkbox-label">
+          Я даю согласие на обработку моих персональных данных
+        </label>
+      </div>
+
+      <!-- Кнопка отправки -->
+      <SubmitButton>
+        Отправить
+      </SubmitButton>
+    </form>
+  </div>
+</div>
+
+<style lang="scss" is:global>
+.contact-section {
+  
+  
+  
+
+  
+
+  
+}
+
+.contact-container {
+  background: #1E6BD0;
+  border-radius: 24px;
+  padding: 64px;  
+  max-width: $container-size;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  position: relative;
+  z-index: 1;
+  position: relative;
+  overflow: hidden;
+  color: white;
+  &::before {
+    content: '';
+    position: absolute;
+    width: 518px;
+    height: 518px;
+    left: 32px;
+    top: 528px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    width: 368px;
+    height: 368px;
+    left: 360px;
+    top: 711px;
+    background: rgba(255, 255, 255, 0.04);
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.contact-title {
+  
+  font-size: 40px;
+  font-weight: $font-weight-bold;
+  line-height: $line-height-tight;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.contact-description {
+  
+  font-size: 18px;
+  line-height: $line-height-relaxed;
+  margin: 0;
+  opacity: 0.9;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.checkbox-input {
+  width: 19px;
+  height: 19px;
+  border: 1.5px solid rgba(255, 255, 255, 0.16);
+  border-radius: 2px;
+  background: transparent;
+  margin-top: 2px;
+  cursor: pointer;
+  
+  &:checked {
+    background: white;
+    border-color: white;
+  }
+}
+
+.checkbox-label {
+  
+  font-size: 14px;
+  line-height: $line-height-normal;
+  cursor: pointer;
+  flex: 1;
+}
+
+/* Адаптивность */
+@media (max-width: $breakpoint-lg) {
+  .contact-container {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+  
+  .contact-section {
+    padding: 48px 32px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .contact-section {
+    padding: 32px 24px;
+    border-radius: 16px;
+  }
+  
+  .contact-title {
+    font-size: 32px;
+  }
+  
+  .contact-description {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .contact-section {
+    padding: 24px 16px;
+  }
+  
+  .contact-title {
+    font-size: 28px;
+  }
+}
+</style>

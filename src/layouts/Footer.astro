@@ -4,8 +4,6 @@ import telegramIcon from '../assets/telegram.svg';
 import vkIcon from '../assets/vk.svg';
 import RTIcon from '../assets/RT.svg';
 import RFIcon from '../assets/RF.svg';
-
-
 ---
 <footer class="footer">
   <div class="footer__container container">
@@ -125,7 +123,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__title {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-xs;
       color: $color-primary;
       font-weight: 600;
@@ -143,7 +141,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__link {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-md;
       color: $color-text-primary;
       text-decoration: none;
@@ -161,7 +159,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__phone {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-md;
       color: $color-text-primary;
       font-weight: 500;
@@ -174,7 +172,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__email {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-md;
       color: $color-text-primary;
       text-decoration: none;
@@ -186,7 +184,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__schedule {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-xs;
       color: $color-text-secondary;
     }
@@ -229,7 +227,7 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__copyright {
-      font-family: $font-family-primary;
+      
       font-size: $font-size-xs;
       color: $color-text-secondary;
     }
@@ -245,7 +243,7 @@ import RFIcon from '../assets/RF.svg';
       gap: 12px;
       align-items: center;
       justify-content: center;
-      font-family: $font-family-primary;
+      
       font-size: $font-size-xs;
       color: $color-text-primary;
       text-align: left;
@@ -253,54 +251,54 @@ import RFIcon from '../assets/RF.svg';
     }
   }
 
-  @media (max-width: 1200px) {
-    .footer__container {
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-    }
+@media (max-width: $breakpoint-xl) {
+  .footer__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .footer__container {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
-  @media (max-width: 768px) {
-    .footer__container {
-      grid-template-columns: 1fr;
-      gap: 24px;
-    }
-
-    .footer__bottom-container {
-      flex-direction: column;
-      gap: 16px;
-      text-align: center;
-    }
-
-    .footer__ministries {
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .footer__ministry {
-      text-align: center;
-    }
+  .footer__bottom-container {
+    flex-direction: column;
+    gap: 16px;
+    text-align: center;
   }
 
-  @media (max-width: 480px) {
-    .footer {
-      padding-top: 24px;
-    }
-
-    .footer__container {
-      gap: 20px;
-    }
-
-    .footer__title {
-      margin-bottom: 12px;
-    }
-
-    .footer__title--spacing {
-      margin-top: 24px;
-    }
-
-    .footer__nav {
-      gap: 8px;
-    }
+  .footer__ministries {
+    flex-direction: column;
+    gap: 16px;
   }
+
+  .footer__ministry {
+    text-align: center;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .footer {
+    padding-top: 24px;
+  }
+
+  .footer__container {
+    gap: 20px;
+  }
+
+  .footer__title {
+    margin-bottom: 12px;
+  }
+
+  .footer__title--spacing {
+    margin-top: 24px;
+  }
+
+  .footer__nav {
+    gap: 8px;
+  }
+}
 </style>

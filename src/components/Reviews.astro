@@ -12,32 +12,28 @@ const reviewsData = [
     date: "18.09.2025 года",
     doctor: "Муниров Рустем Юрисович",
     text: "Муниров Рустем Юрисович провел операцию моему папе Мукаеву Ю. И. Выражаю громадную благодарность Рустему Юрисовичу за благополучно проведённую операцию, за душевное и профессиональное отношение в предоперационный и послеоперационный периоды! Здоровья Вам!",
-    rating: 5,
-    showFullText: false
+    rating: 5
   },
   {
     id: 2,
     author: "Мукаева Елена Юрьевна",
     doctor: "Сабиров Акмал Абдираимович",
     text: "От всей души хочу выразить свою благодарность Сабирову Акмалу Абдираимович. Акмал Адираимович профессионал, хороший специалист своего дела и просто хороший человек с чувством юмора. Более 2х часов провел операцию, всё объяснил, дал рекомендации. Надеюсь всё будет хорошо. Он человек с золотыми руками и большой",
-    rating: 5,
-    showFullText: false
+    rating: 5
   },
   {
     id: 3,
     author: "Мукаева Елена Юрьевна",
     doctor: "Айгуль Фаритовна",
     text: "Моя мама экстренно попала в РКБ , ей срочно сделали операцию на сердце. Мы от всего сердца благодарим команду РКБ. Айгуль Фаритовна к маме отнеслась со всей душой. Врач от бога. Дала правильное лечение, проверяли каждый день. Я всегда говорю хорошее отношение врачей к пациентам это уже выздоровления на 50%.",
-    rating: 5,
-    showFullText: false
+    rating: 5
   },
   {
     id: 4,
     author: "Мукаева Елена Юрьевна",
     doctor: "Айгуль Фаритовна",
     text: "Моя мама экстренно попала в РКБ , ей срочно сделали операцию на сердце. Мы от всего сердца благодарим команду РКБ. Айгуль Фаритовна к маме отнеслась со всей душой. Врач от бога. Дала правильное лечение, проверяли каждый день. Я всегда говорю хорошее отношение врачей к пациентам это уже выздоровления на 50%.",
-    rating: 5,
-    showFullText: false
+    rating: 5
   }
 ];
 ---
@@ -71,11 +67,9 @@ const reviewsData = [
             )}
             {review.text}
           </p>
-          {review.id === 2 && (
-            <button class="review-card__read-more">
-              Читать полностью
-            </button>
-          )}
+          <button class="review-card__read-more" style="display: none;">
+            Читать полностью
+          </button>
         </div>
       </div>
     ))}
@@ -98,28 +92,49 @@ const reviewsData = [
   </div>
 </div>
 
-
+<!-- Модальное окно -->
+<div id="reviewModal" class="modal-overlay" style="display: none;">
+  <div class="modal-content">
+    <button class="modal-close">×</button>
+    <div class="modal-header">
+      <h3 class="modal-author"></h3>
+      <QuoteIcon />
+    </div>
+    <div class="modal-rating"></div>
+    <div class="modal-text"></div>
+  </div>
+</div>
 
 <script>
 $(document).ready(function(){
+  // Инициализация карусели
   $('.reviews-carousel').owlCarousel({
     margin: 12,
-    nav: false, // Отключаем стандартные кнопки навигации
-    dots: true, // Включаем точки
-    dotsContainer: '#customDots', // Кастомный контейнер для точек
+    nav: false,
+    dots: true,
+    dotsContainer: '#customDots',
     responsive: {
       0: {
-        items: 1 // На мобильных - 1 отзыв
+        items: 1
       },
       768: {
-        items: 2 // На планшетах - 2 отзыва
+        items: 2
       },
       1024: {
-        items: 3 // На десктопах - 3 отзыва
+        items: 3
       }
     },
-    onInitialized: updateProgress,
-    onTranslated: updateProgress
+    onInitialized: function(event) {
+      updateProgress(event);
+      checkTextOverflow();
+    },
+    onTranslated: function(event) {
+      updateProgress(event);
+      checkTextOverflow();
+    },
+    onResized: function(event) {
+      checkTextOverflow();
+    }
   });
 
   // Кастомные кнопки навигации
@@ -133,10 +148,8 @@ $(document).ready(function(){
 
   // Функция для обновления прогресса
   function updateProgress(event) {
-    const carousel = event.target;
     const current = event.item.index + 1;
     const total = event.item.count;
-    // Обновляем прогресс бар (если нужно)
     const progress = (current / total) * 100;
     $('.pagination-progress').css('width', progress + '%');
   }
@@ -150,25 +163,89 @@ $(document).ready(function(){
       dots.append('<button class="owl-dot"><span></span></button>');
     }
     
-    // Обработчики для кастомных точек
     $('.owl-dot').each(function(index) {
       $(this).click(function() {
         $('.reviews-carousel').trigger('to.owl.carousel', [index]);
       });
     });
   });
+
+  // Проверка переполнения текста и показ кнопки "Читать полностью"
+  function checkTextOverflow() {
+    $('.review-card').each(function() {
+      const $textElement = $(this).find('.review-card__text');
+      const $readMoreBtn = $(this).find('.review-card__read-more');
+      
+      // Проверяем, превышает ли текст 7 строк
+      if (isTextOverflowing($textElement[0])) {
+        $readMoreBtn.show();
+      } else {
+        $readMoreBtn.hide();
+      }
+    });
+  }
+
+  // Функция проверки переполнения текста
+  function isTextOverflowing(element) {
+    const lineHeight = parseInt(getComputedStyle(element).lineHeight);
+    const maxHeight = lineHeight * 7; // 7 строк
+    return element.scrollHeight > maxHeight;
+  }
+
+  // Обработчик кнопки "Читать полностью"
+  $(document).on('click', '.review-card__read-more', function() {
+    const $card = $(this).closest('.review-card');
+    const author = $card.find('.review-card__author').text();
+    const rating = $card.find('.review-card__rating').html();
+    const text = $card.find('.review-card__text').html();
+    
+    openModal(author, rating, text);
+  });
+
+  // Функция открытия модального окна
+  function openModal(author, rating, text) {
+    $('#reviewModal .modal-author').text(author);
+    $('#reviewModal .modal-rating').html(rating);
+    $('#reviewModal .modal-text').html(text);
+    $('#reviewModal').fadeIn();
+    $('body').css('overflow', 'hidden');
+  }
+
+  // Закрытие модального окна
+  $('#reviewModal .modal-close').click(closeModal);
+  $('#reviewModal').click(function(e) {
+    if (e.target === this) {
+      closeModal();
+    }
+  });
+
+  // Закрытие по ESC
+  $(document).keydown(function(e) {
+    if (e.key === 'Escape') {
+      closeModal();
+    }
+  });
+
+  function closeModal() {
+    $('#reviewModal').fadeOut();
+    $('body').css('overflow', '');
+  }
+
+  // Проверка при загрузке и изменении размера окна
+  $(window).on('load resize', function() {
+    setTimeout(checkTextOverflow, 100);
+  });
 });
 </script>
 
 <style lang="scss" is:global>
 .reviews-section {
-  max-width: 1416px;
+  max-width: $container-size;
   padding: 40px 0;
   margin: 0 auto;
-  
 
   &__title {
-    font-family: $font-family-primary;
+    
     font-size: 40px;
     font-weight: $font-weight-bold;
     color: $color-text-primary;
@@ -184,10 +261,6 @@ $(document).ready(function(){
   
   .owl-stage {
     display: flex;
-  }
-  
-  .owl-item {
-    // padding: 0 6px;
   }
 }
 
@@ -208,7 +281,7 @@ $(document).ready(function(){
   }
 
   &__author {
-    font-family: $font-family-primary;
+    
     font-size: 18px;
     font-weight: $font-weight-medium;
     color: $color-text-primary;
@@ -233,21 +306,21 @@ $(document).ready(function(){
     flex-direction: column;
   }
 
-  &__date {
-    font-family: $font-family-primary;
-    font-size: 16px;
-    color: $color-text-primary;
-    margin: 0 0 16px 0;
-    font-weight: $font-weight-medium;
-  }
-
   &__text {
-    font-family: $font-family-primary;
+    
     font-size: 16px;
     color: $color-text-primary;
     line-height: $line-height-relaxed;
     margin: 0;
     flex: 1;
+    
+    /* Ограничение текста до 7 строк */
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    
     strong {
       font-weight: $font-weight-semibold;
     }
@@ -257,7 +330,7 @@ $(document).ready(function(){
     background: none;
     border: none;
     color: $color-primary;
-    font-family: $font-family-primary;
+    
     font-size: 16px;
     cursor: pointer;
     padding: 0;
@@ -271,6 +344,91 @@ $(document).ready(function(){
   }
 }
 
+/* Стили для модального окна */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 24px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  max-height: 80vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color $transition-fast;
+
+  &:hover {
+    background: $color-bg-hover;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.modal-author {
+  
+  font-size: 20px;
+  font-weight: $font-weight-medium;
+  color: $color-text-primary;
+  margin: 0;
+}
+
+.modal-rating {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 24px;
+  
+  svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.modal-text {
+  
+  font-size: 16px;
+  color: $color-text-primary;
+  line-height: $line-height-relaxed;
+  
+  strong {
+    font-weight: $font-weight-semibold;
+  }
+}
+
+/* Остальные стили остаются без изменений */
 .reviews-navigation {
   display: flex;
   justify-content: center;
@@ -289,7 +447,6 @@ $(document).ready(function(){
   max-width: 100%;
 }
 
-/* Кастомные точки Owl Carousel */
 .owl-dots {
   display: flex;
   justify-content: center;
@@ -298,7 +455,6 @@ $(document).ready(function(){
 .owl-dot {
   width: 32px;
   height: 2px;
-  
   border: none;
   background: rgba(15, 23, 42, 0.2);
   cursor: pointer;
@@ -345,20 +501,20 @@ $(document).ready(function(){
 }
 
 /* Адаптивность */
-@media (max-width: 1440px) {
+@media (max-width: $breakpoint-xxl) {
   .reviews-section {
     // padding: 40px 24px;
   }
 }
 
-@media (max-width: 1024px) {
+@media (max-width: $breakpoint-lg) {
   .review-card {
     height: auto;
     min-height: 366px;
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: $breakpoint-md) {
   .reviews-section__title {
     font-size: 32px;
     margin-bottom: 32px;
@@ -376,6 +532,15 @@ $(document).ready(function(){
     }
   }
 
+  .modal-content {
+    padding: 24px;
+    margin: 20px;
+  }
+
+  .modal-author {
+    font-size: 18px;
+  }
+
   .reviews-navigation {
     flex-direction: column;
     gap: 24px;
@@ -386,7 +551,7 @@ $(document).ready(function(){
   }
 }
 
-@media (max-width: 480px) {
+@media (max-width: $breakpoint-sm) {
   .reviews-section {
     padding: 32px 16px;
   }
@@ -398,6 +563,85 @@ $(document).ready(function(){
       flex-direction: column;
       gap: 12px;
     }
+  }
+
+  .modal-content {
+    padding: 20px;
+    margin: 10px;
+  }
+
+  .reviews-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}/* Адаптивность */
+@media (max-width: $breakpoint-xxl) {
+  .reviews-section {
+    // padding: 40px 24px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .review-card {
+    height: auto;
+    min-height: 366px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .reviews-section__title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
+  .review-card {
+    padding: 24px;
+    
+    &__author {
+      font-size: 16px;
+    }
+    
+    &__text {
+      font-size: 14px;
+    }
+  }
+
+  .modal-content {
+    padding: 24px;
+    margin: 20px;
+  }
+
+  .modal-author {
+    font-size: 18px;
+  }
+
+  .reviews-navigation {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .reviews-pagination {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .reviews-section {
+    padding: 32px 16px;
+  }
+
+  .review-card {
+    padding: 20px;
+    
+    &__header {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  .modal-content {
+    padding: 20px;
+    margin: 10px;
   }
 
   .reviews-controls {

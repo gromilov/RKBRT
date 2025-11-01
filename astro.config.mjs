@@ -10,7 +10,7 @@ export default defineConfig({
           // Используем @use вместо @import
           additionalData: `
             
-            @use "/src/styles/global" as *;
+            @use "/src/styles/variables" as *;
           `
         }
       }

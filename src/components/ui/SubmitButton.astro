@@ -1,0 +1,45 @@
+---
+const { disabled = false, type = 'submit' } = Astro.props;
+---
+
+<button 
+  type={type}
+  class="submit-button"
+  {disabled}
+>
+  <slot>Отправить</slot>
+</button>
+
+<style lang="scss" is:global>
+.submit-button {
+  font-size: 16px;
+  font-weight: $font-weight-medium;
+  color: #1E6BD0;
+  background: currentColor;
+  border: none;
+  border-radius: 28px;
+  padding: 16px 32px;
+  cursor: pointer;
+  transition: all $transition-normal;
+  align-self: flex-start;
+  
+  &:hover:not(:disabled) {
+    opacity: 0.9;
+    transform: translateY(-1px);
+  }
+  
+  &:active:not(:disabled) {
+    transform: translateY(0);
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  /* Текст внутри кнопки будет белым */
+  & > * {
+    color: white;
+  }
+}
+</style>
