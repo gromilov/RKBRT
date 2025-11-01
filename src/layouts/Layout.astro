@@ -72,6 +72,37 @@ body {
     
   }
 }
+
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  &__icon {
+    position: relative;
+    transform: rotate(90deg);
+  }
+  
+  &__link {
+    font-size: 14px;
+    color: #1E6BD0;
+    text-decoration: underline;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  &__current {
+    font-size: 14px;
+    color: #475569;
+  }
+  
+  svg {
+    transform: rotate(-90deg);
+  }
+}
 </style>
 
 

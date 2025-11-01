@@ -1,0 +1,335 @@
+---
+
+import CalendarIcon from '../assets/calendar.svg';
+import DocumentIcon from '../assets/document.svg';
+import DownloadIcon from '../assets/download.svg';
+
+const newsItem = {
+  title: "Личный кабинет пациента: ваши медицинские данные всегда под рукой",
+  date: "24.09.2025 15:46",
+  image: "/images/RKB.png",
+  content: `
+    <p>Уважаемые пациенты! Личный кабинет пациента – удобный инструмент для управления своими медицинскими данными.</p>
+    
+    <h3>Что доступно в личном кабинете?</h3>
+    
+    <p><strong>Медицинская карта:</strong> хранение и быстрый доступ к истории ваших обращений, результатов анализов и назначений.</p>
+    
+    <p><strong>Записи на прием:</strong> вы сможете просматривать свои назначенные визиты к врачам и управлять записью.</p>
+    
+    <p><strong>Дневники здоровья:</strong> функция отслеживания лечения с важными заметками и рекомендациями от специалистов. Это поможет вам и вашему врачу эффективно мониторить ваше состояние.</p>
+    
+    <p><strong>Полезная информация:</strong> доступ к актуальным статьям и новостям в области здравоохранения, а также рекомендации по здоровому образу жизни.</p>
+    
+    <h3>Почему личный кабинет это круто?</h3>
+    
+    <p>Личный кабинет в нашей больнице делает заботу о здоровье проще и удобнее. Здесь вы можете записаться на приём к врачу, просмотреть результаты анализов, следить за историей посещений и графиком обследований, не тратя время на звонки или очереди. Всё нужное всегда под рукой, а ваши данные надёжно защищены. Личный кабинет помогает быть в курсе своего здоровья, получать своевременные уведомления о приемах и назначениях и управлять визитами в клинику легко и безопасно.</p>
+    
+    <p>Личный кабинет помогает экономить время и упрощает взаимодействие с клиникой. Всё, от записи на приём до получения справок и оплаты услуг, можно сделать онлайн в пару кликов. Вы всегда будете получать важные уведомления и напоминания, а доступ к вашим медицинским данным остаётся полностью конфиденциальным. Это современное и удобное решение для тех, кто ценит своё здоровье и своё время.</p>
+  `
+};
+
+// Документы для скачивания
+const documents = [
+  {
+    title: "Руководство пользователя",
+    format: "PDF",
+    size: "2 мб"
+  },
+  {
+    title: "Инструкция по регистрации",
+    format: "PDF",
+    size: "2 мб"
+  },
+  {
+    title: "Памятка пациента",
+    format: "PDF",
+    size: "2 мб"
+  }
+];
+---
+
+<div class="news-single-page">
+  <!-- Хлебные крошки -->
+  <div class="breadcrumbs">
+    <a href="/" class="breadcrumbs__link">Пациентам</a>
+    <span class="breadcrumbs__icon">
+    <svg  width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    </span>
+    <span class="breadcrumbs__current">Личный кабинет</span>
+  </div>
+
+  <!-- Заголовок новости -->
+  <h1 class="news-single__title">{newsItem.title}</h1>
+  
+  <!-- Дата публикации -->
+  <div class="news-single__date">
+    <span><CalendarIcon /></span>
+    <span>{newsItem.date}</span>
+  </div>
+
+  <!-- Изображение новости -->
+  <div class="news-single__image">
+    <img src={newsItem.image} alt={newsItem.title} />
+  </div>
+
+  <!-- Контент новости -->
+  <div class="news-single__content" set:html={newsItem.content}></div>
+
+  <!-- Прикрепленные документы -->
+  <section class="documents-section">
+    <h2 class="documents-section__title">Прикрепленные документы</h2>
+    
+    <div class="documents-grid">
+      {documents.map((doc, index) => (
+        <div class="document-card" key={index}>
+          <div class="document-card__icon"><DocumentIcon /></div>
+          
+          <div class="document-card__info">
+            <h3 class="document-card__title">{doc.title}</h3>
+            <div class="document-card__meta">
+              <span class="document-card__format">{doc.format}</span>
+              <span class="document-card__separator">•</span>
+              <span class="document-card__size">{doc.size}</span>
+            </div>
+          </div>
+          
+          <button class="document-card__download">
+            <span><DownloadIcon/></span>
+          </button>
+        </div>
+      ))}
+    </div>
+  </section>
+</div>
+
+<style lang="scss" is:global>
+.news-single-page {
+  max-width: $container-post-size;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+
+.news-single {
+  &__title {
+    font-size: 48px;
+    font-weight: bold;
+    color: $color-text-primary;
+    letter-spacing: -0.01em;
+    line-height: 1.2;
+    margin-bottom: 24px;
+  }
+  
+  &__date {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #475569;
+    margin-bottom: 40px;
+    
+    svg {
+      color: #475569;
+    }
+  }
+  
+  &__image {
+    width: 100%;
+    height: 484px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 40px;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  &__content {
+    font-size: 18px;
+    line-height: 1.6;
+    color: $color-text-primary;
+    
+    h3 {
+      font-size: 32px;
+      font-weight: bold;
+      margin: 48px 0 24px;
+      letter-spacing: -0.01em;
+    }
+    
+    p {
+      margin-bottom: 24px;
+    }
+    
+    strong {
+      font-weight: 600;
+    }
+  }
+}
+
+.documents-section {
+  margin-top: 80px;
+  
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: $color-text-primary;
+    letter-spacing: -0.01em;
+    margin-bottom: 40px;
+  }
+}
+
+.documents-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+  gap: 12px;
+}
+
+.document-card {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 1px solid rgba(4, 5, 7, 0.12);
+  border-radius: 16px;
+  gap: 12px;
+  &__icon {
+    position: relative;
+    display: flex;
+    width: 48px;
+    height: 48px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    color: $color-primary;
+    &::after {
+        content: '';
+        position: absolute;
+        background: currentColor;
+        width: 48px;
+        height: 48px;
+        left: 0; right: 0;
+        bottom: 0;
+        top: 0;
+        opacity: 0.1;
+    }
+  }
+  
+  &__info {
+    flex: 1;
+  }
+  
+  &__title {
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin-bottom: 4px;
+  }
+  
+  &__meta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: #475569;
+  }
+  
+  &__separator {
+    font-size: 8px;
+  }
+  
+  &__download {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    color: #475569;
+    
+    &:hover {
+      color: $color-primary;
+    }
+  }
+}
+
+/* Адаптивность */
+@media (max-width: $breakpoint-xxl) {
+  .news-single-page {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .news-single {
+    &__title {
+      font-size: 36px;
+    }
+    
+    &__image {
+      height: 400px;
+    }
+  }
+  
+  .documents-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .news-single {
+    &__title {
+      font-size: 28px;
+    }
+    
+    &__image {
+      height: 300px;
+    }
+    
+    &__content {
+      font-size: 16px;
+      
+      h3 {
+        font-size: 24px;
+      }
+    }
+  }
+  
+  .documents-section {
+    margin-top: 60px;
+    
+    &__title {
+      font-size: 24px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .news-single-page {
+    padding: 32px 16px;
+  }
+  
+  .news-single {
+    &__title {
+      font-size: 24px;
+    }
+    
+    &__image {
+      height: 200px;
+      border-radius: 16px;
+    }
+  }
+  
+  .breadcrumbs {
+    font-size: 12px;
+  }
+}
+</style>
