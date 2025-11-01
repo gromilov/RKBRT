@@ -1,0 +1,279 @@
+---
+// Компонент MainGrid.astro
+import EmployeeCarousel from './EmployeeCarousel.astro';
+---
+
+<div class="main-grid">
+  <!-- Левый верхний блок - Республиканская клиническая больница -->
+  <a 
+    href="#" 
+    class="grid-card grid-card--large grid-card--hospital"
+    style="background-image: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, #0F172A 100%), url('/images/RKB.png');"
+  >
+    <div class="grid-card__content">
+      <h2 class="grid-card__title">Республиканская<br>Клиническая больница</h2>
+      <p class="grid-card__description">Многопрофильное медицинское учреждение Республики Татарстан</p>
+    </div>
+  </a>
+
+  <!-- Правый верхний блок - Карусель сотрудников недели -->
+  <div class="grid-card--small grid-card--employee-carousel">
+    <EmployeeCarousel />
+  </div>
+
+  <!-- Остальные блоки остаются без изменений -->
+  <a 
+    href="#" 
+    class="grid-card grid-card--small grid-card--patients" 
+  >
+    <div class="grid-card__content">
+      <h3 class="grid-card__name">Пациентам</h3>
+      <p class="grid-card__position">Все важное для пациентов — как попасть на прием, пройти обследование и воспользоваться онлайн-сервисами.</p>
+    </div>
+    <div class="grid-card__icon">
+      <svg width="315" height="315" viewBox="0 0 315 315" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="259" cy="56" r="259" fill="white" fill-opacity="0.04"/>
+        <circle cx="259" cy="56" r="120" fill="white" fill-opacity="0.04"/>
+        <circle cx="259" cy="56" r="24" fill="white"/>
+        <path d="M253.667 51H263.667V61" stroke="#004C89" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M253.667 61L263.667 51" stroke="#004C89" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+  </a>
+
+  <!-- Центральный нижний блок - Платные услуги -->
+  <a 
+    href="#" 
+    class="grid-card grid-card--small grid-card--paid"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('/images/sevices.png');"
+  >
+    <div class="grid-card__content">
+      <h3 class="grid-card__name">Платные услуги</h3>
+    </div>
+  </a>
+
+  <!-- Правый нижний блок - Карта РКБ -->
+  <a 
+    href="#" 
+    class="grid-card grid-card--small grid-card--map"
+    style="background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 100%), url('/images/map.png');"
+  >
+    <div class="grid-card__content">
+      <h3 class="grid-card__name">Карта РКБ</h3>
+    </div>
+  </a>
+</div>
+
+<style lang="scss" is:global>
+  .main-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    gap: 12px;
+    max-width: 1424px;
+    margin: 0 auto;
+    aspect-ratio: 1424 / 908;
+    padding-top: 16px;
+  }
+
+  .grid-card--employee-carousel {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    min-height: 348px;
+  }
+
+  /* Остальные стили остаются без изменений */
+  .grid-card {
+    position: relative;
+    border-radius: 24px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    align-items: flex-end;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    // &:hover {
+    //   transform: translateY(-4px);
+    //   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+    // }
+
+    &--large {
+      grid-column: span 2;
+      min-height: 540px;
+    }
+
+    &--small {
+      min-height: 348px;
+    }
+
+
+    &--hospital {
+      
+      color: white;
+	  
+    }
+
+    &--employee {
+      
+      color: white;
+    }
+
+    &--patients {
+      background-color: #1E6BD0;
+      color: white;
+      position: relative;
+      overflow: hidden;
+
+      
+    }
+
+    &--paid {
+      background-color: #1E6BD0;
+    //   background-image: url('/images/sevices.png');
+      color: white;
+      position: relative;
+      
+    //   &::before {
+    //     content: '';
+    //     position: absolute;
+    //     top: 0;
+    //     left: 0;
+    //     right: 0;
+    //     bottom: 0;
+    //     background: #EB1111;
+    //     mix-blend-mode: color;
+    //     opacity: 0.3;
+    //   }
+    }
+
+    &--map {
+      color: white;
+      position: relative;
+      
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: #1E6BD0;
+        mix-blend-mode: color;
+        opacity: 0.3;
+      }
+    }
+
+    &__content {
+      position: relative;
+      z-index: 2;
+      padding: 32px;
+      padding-bottom: 48px;
+      width: 100%;
+    }
+
+    &__title {
+      font-family: $font-family-primary;
+      font-size: 56px;
+      font-weight: bold;
+      line-height: 1.1;
+      margin-bottom: 16px;
+    }
+
+    &__name {
+      font-family: $font-family-primary;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    &__description {
+      font-family: $font-family-primary;
+      font-size: 20px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    &__position {
+      font-family: $font-family-primary;
+      font-size: 14px;
+      opacity: 0.9;
+      line-height: 1.4;
+    }
+
+    .employee-badge {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.16);
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-family: $font-family-primary;
+      font-size: 14px;
+      margin-bottom: 16px;
+    }
+
+    &__icon {
+      position: absolute;
+      top: 0px;
+      right: 0px;
+    }
+  }
+
+  @media (max-width: 1200px) {
+    .main-grid {
+      grid-template-columns: 1fr;
+      aspect-ratio: auto;
+    }
+
+    .grid-card--large {
+      min-height: 400px;
+      grid-column: span 1;
+    }
+
+    .grid-card--small {
+      min-height: 300px;
+    }
+  }
+
+ @media (max-width: 768px) {
+    .main-grid {
+      gap: 12px;
+      
+    }
+
+    .grid-card__content {
+      padding: 24px;
+    }
+
+    .grid-card__title {
+      font-size: 32px;
+    }
+
+    .grid-card__description {
+      font-size: 16px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .grid-card__title {
+      font-size: 24px;
+    }
+
+    .grid-card__name {
+      font-size: 20px;
+    }
+
+    .grid-card__description,
+    .grid-card__position {
+      font-size: 14px;
+    }
+
+    .employee-badge {
+      font-size: 12px;
+      padding: 6px 10px;
+    }
+}
+</style>

@@ -1,0 +1,356 @@
+---
+import StarIcon from '../components/icons/star.astro';
+import PrevIcon from '../components/icons/prev.astro';
+import NextIcon from '../components/icons/next.astro';
+import QuoteIcon from '../components/icons/quote.astro';
+// Данные отзывов
+const reviewsData = [
+  {
+    id: 1,
+    author: "Мукаева Елена Юрьевна",
+    date: "18.09.2025 года",
+    doctor: "Муниров Рустем Юрисович",
+    text: "Муниров Рустем Юрисович провел операцию моему папе Мукаеву Ю. И. Выражаю громадную благодарность Рустему Юрисовичу за благополучно проведённую операцию, за душевное и профессиональное отношение в предоперационный и послеоперационный периоды! Здоровья Вам!",
+    rating: 5,
+    showFullText: false
+  },
+  {
+    id: 2,
+    author: "Мукаева Елена Юрьевна",
+    doctor: "Сабиров Акмал Абдираимович",
+    text: "От всей души хочу выразить свою благодарность Сабирову Акмалу Абдираимович. Акмал Адираимович профессионал, хороший специалист своего дела и просто хороший человек с чувством юмора. Более 2х часов провел операцию, всё объяснил, дал рекомендации. Надеюсь всё будет хорошо. Он человек с золотыми руками и большой",
+    rating: 5,
+    showFullText: false
+  },
+  {
+    id: 3,
+    author: "Мукаева Елена Юрьевна",
+    doctor: "Айгуль Фаритовна",
+    text: "Моя мама экстренно попала в РКБ , ей срочно сделали операцию на сердце. Мы от всего сердца благодарим команду РКБ. Айгуль Фаритовна к маме отнеслась со всей душой. Врач от бога. Дала правильное лечение, проверяли каждый день. Я всегда говорю хорошее отношение врачей к пациентам это уже выздоровления на 50%.",
+    rating: 5,
+    showFullText: false
+  },
+
+  {
+    id: 4,
+    author: "Мукаева Елена Юрьевна",
+    doctor: "Айгуль Фаритовна",
+    text: "Моя мама экстренно попала в РКБ , ей срочно сделали операцию на сердце. Мы от всего сердца благодарим команду РКБ. Айгуль Фаритовна к маме отнеслась со всей душой. Врач от бога. Дала правильное лечение, проверяли каждый день. Я всегда говорю хорошее отношение врачей к пациентам это уже выздоровления на 50%.",
+    rating: 5,
+    showFullText: false
+  }
+];
+---
+
+<div class="reviews-section">
+  <!-- Заголовок раздела -->
+  <h2 class="reviews-section__title">Отзывы</h2>
+
+  <div class="reviews-container">
+    {
+      reviewsData.map((review, index) => (
+        <div class="review-card" key={review.id}>
+          <!-- Заголовок карточки -->
+          <div class="review-card__header">
+            <h3 class="review-card__author">{review.author}</h3>
+            <QuoteIcon />
+          </div>
+
+          <!-- Рейтинг -->
+          <div class="review-card__rating">
+            {Array.from({ length: review.rating }).map((_, i) => (
+                <StarIcon />
+            ))}
+          </div>
+
+          <!-- Текст отзыва -->
+          <div class="review-card__content">
+            {review.date && (
+              <p class="review-card__date">{review.date}</p>
+            )}
+            <p class="review-card__text">
+              {review.doctor && (
+                <strong>{review.doitor}</strong>
+              )}
+              {review.text}
+            </p>
+            {review.id === 2 && (
+              <button class="review-card__read-more">
+                Читать полностью
+              </button>
+            )}
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Навигация -->
+  <div class="reviews-navigation">
+    
+    
+    <div class="reviews-controls">
+      <button class="reviews-button reviews-button--prev">
+          <PrevIcon />
+      </button>
+      <div class="reviews-pagination">
+      <div class="pagination-track">
+        <div class="pagination-progress"></div>
+      </div>
+    </div>
+      <button class="reviews-button reviews-button--next">
+          <NextIcon />
+      </button>
+    </div>
+  </div>
+</div>
+
+<style lang="scss" is:global>
+.reviews-section {
+  max-width: 1416px;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  &__title {
+    font-family: $font-family-primary;
+    font-size: 40px;
+    font-weight: $font-weight-bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin-bottom: 48px;
+    letter-spacing: -0.01em;
+  }
+}
+
+.reviews-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-bottom: 40px;
+}
+
+.review-card {
+  background: $color-bg-hover;
+  border-radius: 24px;
+  padding: 32px;
+  height: 366px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  &__author {
+    font-family: $font-family-primary;
+    font-size: 18px;
+    font-weight: $font-weight-medium;
+    color: $color-text-primary;
+    margin: 0;
+    line-height: $line-height-tight;
+  }
+
+  &__rating {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 24px;
+    
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__date {
+    font-family: $font-family-primary;
+    font-size: 16px;
+    color: $color-text-primary;
+    margin: 0 0 16px 0;
+    font-weight: $font-weight-medium;
+  }
+
+  &__text {
+    font-family: $font-family-primary;
+    font-size: 16px;
+    color: $color-text-primary;
+    line-height: $line-height-relaxed;
+    margin: 0;
+    flex: 1;
+    
+    strong {
+      font-weight: $font-weight-semibold;
+    }
+  }
+
+  &__read-more {
+    background: none;
+    border: none;
+    color: $color-primary;
+    font-family: $font-family-primary;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    margin-top: 8px;
+    align-self: flex-start;
+    transition: color $transition-fast;
+
+    &:hover {
+      color: $color-primary-dark;
+    }
+  }
+}
+
+.reviews-navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 828px;
+  margin: 0 auto;
+}
+
+.reviews-pagination {
+  flex: 1;
+  max-width: 240px;
+}
+
+.pagination-track {
+  width: 100%;
+  height: 2px;
+  background: #E2E3E5;
+  border-radius: 1px;
+  position: relative;
+}
+
+.pagination-progress {
+  width: 40px;
+  height: 2px;
+  background: $color-primary;
+  border-radius: 1px;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.reviews-controls {
+  display: flex;
+  gap: 12px;
+}
+
+.reviews-button {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all $transition-normal;
+  position: relative;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  
+//   &::before {
+//     content: '';
+//     position: absolute;
+//     top: 0;
+//     left: 0;
+//     right: 0;
+//     bottom: 0;
+    
+//   }
+
+  &:hover {
+    background: $color-bg-hover;
+  }
+
+//   svg {
+//     width: 24px;
+//     height: 24px;
+//   }
+}
+
+/* Адаптивность */
+@media (max-width: 1440px) {
+  .reviews-section {
+    padding: 40px 24px;
+  }
+  
+  .reviews-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .reviews-container {
+    grid-template-columns: 1fr;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .review-card {
+    height: auto;
+    min-height: 366px;
+  }
+}
+
+@media (max-width: 768px) {
+  .reviews-section__title {
+    font-size: 32px;
+    margin-bottom: 32px;
+  }
+
+  .review-card {
+    padding: 24px;
+    
+    &__author {
+      font-size: 16px;
+    }
+    
+    &__text {
+      font-size: 14px;
+    }
+  }
+
+  .reviews-navigation {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .reviews-pagination {
+    max-width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-section {
+    padding: 32px 16px;
+  }
+
+  .review-card {
+    padding: 20px;
+    
+    &__header {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+
+  .reviews-controls {
+    width: 100%;
+    justify-content: center;
+  }
+}
+</style>

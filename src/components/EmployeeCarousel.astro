@@ -1,0 +1,260 @@
+---
+// Компонент EmployeeCarousel.astro
+const employees = [
+  {
+    name: "Кондратьева Ксения Юрьевна",
+    position: "Руководитель первичной организации профсоюза работников здравоохранения РФ ГАУЗ «РКБ МЗ РТ»",
+    image: "/images/employee.png",
+    link: "/employees/kondrateva"
+  },
+  {
+    name: "Иванов Петр Сергеевич",
+    position: "Главный врач отделения кардиологии ГАУЗ «РКБ МЗ РТ»",
+    image: "/images/employee.png",
+    link: "/employees/ivanov"
+  },
+  {
+    name: "Смирнова Анна Владимировна",
+    position: "Старшая медицинская сестра хирургического отделения ГАУЗ «РКБ МЗ РТ»",
+    image: "/images/employee.png",
+    link: "/employees/smirnova"
+  },
+  {
+    name: "Петров Алексей Дмитриевич",
+    position: "Врач-реаниматолог отделения интенсивной терапии ГАУЗ «РКБ МЗ РТ»",
+    image: "/images/employee.png",
+    link: "/employees/petrov"
+  }
+];
+---
+
+<div class="employee-carousel">
+  <div class="employee-carousel__container">
+    <div class="employee-carousel__track">
+      {employees.map((employee, index) => (
+        <div class="employee-carousel__slide" data-index={index}>
+          <a 
+            href={employee.link || "#"} 
+            class="grid-card grid-card--employee"
+            style={`background-image: linear-gradient(180deg, rgba(15, 23, 42, 0) 0%, #0F172A 100%), url('${employee.image}');`}
+          >
+            <div class="grid-card__content">
+              <div class="employee-badge">Сотрудник недели</div>
+              <h3 class="grid-card__name">{employee.name}</h3>
+              <p class="grid-card__position">{employee.position}</p>
+            </div>
+          </a>
+        </div>
+      ))}
+    </div>
+    
+    <!-- Навигационные кнопки -->
+    <button class="employee-carousel__nav employee-carousel__nav--prev" aria-label="Предыдущий сотрудник">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="white"/>
+        <path d="M29 24L19 24" stroke="#010101" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 29L19 24L24 19" stroke="#010101" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    
+    <button class="employee-carousel__nav employee-carousel__nav--next" aria-label="Следующий сотрудник">
+      <svg width="48" height="48" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="24" cy="24" r="24" fill="white"/>
+        <path d="M19 24L29 24" stroke="#010101" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <path d="M24 29L29 24L24 19" stroke="#010101" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    
+    <!-- Индикаторы -->
+    <div class="employee-carousel__indicators">
+      {employees.map((_, index) => (
+        <button 
+          class="employee-carousel__indicator"
+          data-index={index}
+          aria-label={`Перейти к сотруднику ${index + 1}`}
+        ></button>
+      ))}
+    </div>
+  </div>
+</div>
+
+<script>
+// Инициализация карусели
+document.addEventListener('DOMContentLoaded', function() {
+  const carousel = document.querySelector('.employee-carousel');
+  const track = carousel.querySelector('.employee-carousel__track');
+  const slides = carousel.querySelectorAll('.employee-carousel__slide');
+  const prevBtn = carousel.querySelector('.employee-carousel__nav--prev');
+  const nextBtn = carousel.querySelector('.employee-carousel__nav--next');
+  const indicators = carousel.querySelectorAll('.employee-carousel__indicator');
+  
+  let currentIndex = 0;
+  const totalSlides = slides.length;
+  
+  // Функция для обновления позиции карусели
+  function updateCarousel() {
+    track.style.transform = `translateX(-${currentIndex * 100}%)`;
+    
+    // Обновление индикаторов
+    indicators.forEach((indicator, index) => {
+      indicator.classList.toggle('active', index === currentIndex);
+    });
+    
+    // Обновление ARIA атрибутов
+    slides.forEach((slide, index) => {
+      slide.setAttribute('aria-hidden', index !== currentIndex);
+    });
+  }
+  
+  // Переход к следующему слайду
+  function nextSlide() {
+    currentIndex = (currentIndex + 1) % totalSlides;
+    updateCarousel();
+  }
+  
+  // Переход к предыдущему слайду
+  function prevSlide() {
+    currentIndex = (currentIndex - 1 + totalSlides) % totalSlides;
+    updateCarousel();
+  }
+  
+  // Переход к конкретному слайду
+  function goToSlide(index) {
+    currentIndex = index;
+    updateCarousel();
+  }
+  
+  // Обработчики событий
+  prevBtn.addEventListener('click', prevSlide);
+  nextBtn.addEventListener('click', nextSlide);
+  
+  indicators.forEach((indicator, index) => {
+    indicator.addEventListener('click', () => goToSlide(index));
+  });
+  
+  // Автопрокрутка (опционально)
+  let autoPlayInterval;
+  
+  function startAutoPlay() {
+    autoPlayInterval = setInterval(nextSlide, 5000); // Смена каждые 5 секунд
+  }
+  
+  function stopAutoPlay() {
+    clearInterval(autoPlayInterval);
+  }
+  
+  // Пауза автопрокрутки при наведении
+  carousel.addEventListener('mouseenter', stopAutoPlay);
+  carousel.addEventListener('mouseleave', startAutoPlay);
+  
+  // Инициализация
+  updateCarousel();
+  startAutoPlay();
+});
+</script>
+
+<style lang="scss">
+.employee-carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  &__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    border-radius: 24px;
+  }
+  
+  &__track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    height: 100%;
+  }
+  
+  &__slide {
+    flex: 0 0 100%;
+    height: 100%;
+    
+    .grid-card {
+      height: 100%;
+      min-height: 348px;
+    }
+  }
+  
+  &__nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10;
+    padding: 0;
+    
+    &--prev {
+      left: 16px;
+    }
+    
+    &--next {
+      right: 16px;
+    }
+    
+    &:hover {
+      opacity: 0.8;
+    }
+    
+    &:active {
+      transform: translateY(-50%) scale(0.95);
+    }
+  }
+  
+  &__indicators {
+    position: absolute;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  
+  &__indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 0;
+    
+    &.active {
+      background: white;
+      transform: scale(1.2);
+    }
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.8);
+    }
+  }
+}
+
+// Адаптивность
+@media (max-width: 768px) {
+  .employee-carousel {
+    &__nav {
+      transform: translateY(-50%) scale(0.8);
+      
+      &:active {
+        transform: translateY(-50%) scale(0.75);
+      }
+    }
+    
+    &__indicators {
+      bottom: 16px;
+    }
+  }
+}
+</style>
