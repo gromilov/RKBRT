@@ -1,0 +1,119 @@
+---
+// src/components/PartnersList.astro
+
+const partners = [
+  { src: "/images/partners/minzdrav-rossii.png", alt: "Минздрав России", url: "#" },
+  { src: "/images/partners/minzdrav-rt.png", alt: "Минздрав РТ", url: "#" },
+  { src: "/images/partners/roszdravnadzor.jpg", alt: "Росздравнадзор", url: "#" },
+  { src: "/images/partners/den-bezopasnosti-paczienta.png", alt: "День безопасности пациента", url: "#" },
+  { src: "/images/partners/banner_ocenka-768x432-1.jpg", alt: "Оценка", url: "#" },
+  { src: "/images/partners/bbwstvgs7k.jpg", alt: "Партнер", url: "#" },
+  { src: "/images/partners/rubrikator.png", alt: "Рубрикатор", url: "#" },
+  { src: "/images/partners/takzdorovo.png", alt: "Так здорово", url: "#" },
+  { src: "/images/partners/pobeda80_logo_main.png", alt: "Победа 80", url: "#" }
+];
+---
+
+<div class="partners-section">
+  <div class="partners-container">
+    <div class="partners-scroll">
+      <div class="partners-list">
+        {partners.map((partner, index) => (
+          <a href={partner.url} class="partner-item" key={index}>
+            <img src={partner.src} alt={partner.alt} class="partner-logo" />
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style is:global lang="scss">
+.partners-section {
+  
+  
+}
+
+.partners-container {
+  overflow: hidden;
+  position: relative;
+  max-width: $container-size;
+  margin: 0 auto;
+  padding: 64px 12px;
+}
+
+.partners-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari and Opera */
+  }
+}
+
+.partners-list {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  padding: 16px 0;
+  min-width: min-content;
+  height: 75px;
+}
+
+.partner-item {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.partner-item:hover {
+  opacity: 0.8;
+}
+
+.partner-logo {
+  max-height: 75px;
+  max-width: 170px;
+  height: auto;
+  width: auto;
+  object-fit: contain;
+//   filter: grayscale(100%);
+//   opacity: 0.7;
+  transition: all 0.3s ease;
+}
+
+.partner-item:hover .partner-logo {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+/* Адаптивность */
+@media (max-width: $breakpoint-md) {
+  .partners-section {
+    padding: 0 16px;
+  }
+  
+  .partners-list {
+    gap: 24px;
+  }
+  
+  .partner-logo {
+    max-width: 150px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .partners-list {
+    gap: 20px;
+  }
+  
+  .partner-logo {
+    max-width: 120px;
+  }
+}
+</style>
