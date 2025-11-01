@@ -1,0 +1,316 @@
+---
+// src/components/VacanciesPage.astro
+
+// Данные вакансий на основе SVG макета
+const vacanciesData = [
+  {
+    title: "Администратор",
+    description: [
+      "Вы готовы взаимодействовать с отделениями стационара и посетителями."
+    ],
+    qualities: ["Вы готовы"],
+    phone: "+7 (927) 045-79-74",
+    contactPerson: "Людмила Александровна Мартынова"
+  },
+  {
+    title: "Анестезиолог-реаниматолог",
+    description: [
+      "Вы стрессоустойчивы, внимательны и ответственны. Любите свою",
+      "профессию, готовы совершенствоваться и работать",
+      "в команде ради жизни и здоровья пациентов."
+    ],
+    qualities: ["Вы стрессоустойчивы,"],
+    phone: "+7 (927) 045-79-74"
+  },
+  {
+    title: "Инженер по медицинскому оборудованию",
+    description: [
+      "Вы имеете техническое образование, разбираетесь в устройстве и ремонте",
+      "электрооборудования. Интересуетесь медицинской техникой, следите за ее исправностью и",
+      "безопасностью."
+    ],
+    qualities: ["Вы имеете техническое"],
+    email: "Lidiya.Ustyugova@tatar.ru"
+  },
+  {
+    title: "Администратор",
+    description: [
+      "Вы готовы взаимодействовать с отделениями стационара и посетителями. Вы коммуникабельный, ответственный",
+      "и внимательный человек, умеете находить подход к людям и помогать им."
+    ],
+    qualities: ["Вы готовы"],
+    phone: "+7 (927) 045-79-74",
+    contactPerson: "Людмила Александровна Мартынова"
+  },
+  {
+    title: "Анестезиолог-реаниматолог",
+    description: [
+      "Вы стрессоустойчивы, внимательны и ответственны. Любите свою",
+      "профессию, готовы совершенствоваться и работать",
+      "в команде ради жизни и здоровья пациентов."
+    ],
+    qualities: ["Вы стрессоустойчивы,"],
+    phone: "+7 (927) 045-79-74"
+  },
+  {
+    title: "Инженер по медицинскому оборудованию",
+    description: [
+      "Вы имеете техническое образование, разбираетесь в устройстве и ремонте",
+      "электрооборудования. Интересуетесь медицинской техникой, следите за ее исправностью и",
+      "безопасностью."
+    ],
+    qualities: ["Вы имеете техническое"],
+    email: "Lidiya.Ustyugova@tatar.ru"
+  }
+];
+---
+
+<div class="vacancies-page">
+  <!-- Заголовок раздела -->
+  <h2 class="vacancies-page__title">Вакансии</h2>
+  
+  <p class="vacancies-page__subtitle">
+    Если вам интересна вакансия, свяжитесь с нами по указанным контактам.
+  </p>
+
+  <div class="vacancies-grid">
+    {vacanciesData.map((vacancy, index) => (
+      <div class="vacancy-card">
+        <div class="vacancy-card__header">
+          <h3 class="vacancy-card__title">{vacancy.title}</h3>
+        </div>
+        
+        <div class="vacancy-card__content">
+          <p class="vacancy-card__description">
+            <span>Нам с вами по пути если:</span>
+            {vacancy.description.map((line) => (
+              
+                <span>{line}</span>
+              
+            ))}
+          </p>
+          
+          {/* <div class="vacancy-card__contact">
+            
+            <div class="vacancy-card__contact-list">
+              {vacancy.qualities.map((quality) => (
+                <span>{quality}</span>
+              ))}
+            </div>
+          </div> */}
+          
+          <div class="vacancy-card__details">
+            {vacancy.phone && (
+              <div class="vacancy-card__phone">{vacancy.phone}</div>
+            )}
+            {vacancy.contactPerson && (
+              <div class="vacancy-card__person">{vacancy.contactPerson}</div>
+            )}
+            {vacancy.email && (
+              <div class="vacancy-card__email">{vacancy.email}</div>
+            )}
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
+
+<style lang="scss" is:global>
+.vacancies-page {
+  max-width: $container-size;
+  margin: 0 auto;
+  padding: 40px 0;
+
+  &__title {
+    font-size: 48px;
+    font-weight: bold;
+    color: $color-text-primary;
+    text-align: center;
+    margin-bottom: 24px;
+    letter-spacing: -0.01em;
+    font-family: 'Gilroy', sans-serif;
+  }
+
+  &__subtitle {
+    font-size: 18px;
+    color: $color-text-primary;
+    text-align: center;
+    margin-bottom: 48px;
+    font-family: 'Gilroy', sans-serif;
+  }
+}
+
+.vacancies-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 0 12px;
+}
+
+.vacancy-card {
+  background: white;
+  border-radius: 24px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  overflow: hidden;
+ 
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    padding: 32px 32px 0;
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-text-primary;
+    margin: 0;
+    letter-spacing: -0.01em;
+    font-family: 'Gilroy', sans-serif;
+    line-height: 1.2;
+  }
+
+  &__content {
+    padding: 16px 32px 32px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  &__description {
+    
+    font-size: 16px;
+    color: $color-text-primary;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+    font-family: 'Gilroy', sans-serif;
+    & > span:first-child {
+      font-weight: bold;
+    }
+  }
+
+  &__contact {
+    margin-bottom: 16px;
+  }
+
+  &__contact-title {
+    font-size: 16px;
+    color: $color-text-primary;
+    margin: 0 0 8px 0;
+    font-family: 'Gilroy', sans-serif;
+    font-weight: normal;
+  }
+
+  &__contact-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    
+    span {
+      font-size: 16px;
+      color: $color-text-primary;
+      font-family: 'Gilroy', sans-serif;
+    }
+  }
+
+  &__details {
+    padding-top: 16px;
+  }
+
+  &__phone {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-text-primary;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+    font-family: 'Gilroy', sans-serif;
+  }
+
+  &__person {
+    font-size: 16px;
+    color: #475569;
+    margin-bottom: 4px;
+    font-family: 'Gilroy', sans-serif;
+  }
+
+  &__email {
+    font-size: 24px;
+    font-weight: bold;
+    color: $color-text-primary;
+    font-family: 'Gilroy', sans-serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: $breakpoint-xxl) {
+  .vacancies-page {
+    padding: 40px 24px;
+  }
+  
+  .vacancies-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .vacancies-page {
+    padding: 32px 16px;
+  }
+  
+  .vacancies-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+  
+  .vacancies-page__title {
+    font-size: 32px;
+  }
+  
+  .vacancies-page__subtitle {
+    font-size: 16px;
+  }
+  
+  .vacancy-card {
+    height: auto;
+    min-height: 336px;
+    
+    &__header {
+      padding: 24px 24px 0;
+    }
+    
+    &__content {
+      padding: 16px 24px 24px;
+    }
+    
+    &__title {
+      font-size: 20px;
+    }
+    
+    &__phone,
+    &__email {
+      font-size: 20px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .vacancies-page {
+    padding: 24px 12px;
+  }
+  
+  .vacancy-card {
+    &__header {
+      padding: 20px 20px 0;
+    }
+    
+    &__content {
+      padding: 12px 20px 20px;
+    }
+  }
+}
+</style>
