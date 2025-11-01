@@ -83,7 +83,7 @@ import RFIcon from '../assets/RF.svg';
 
   <!-- Нижняя часть футера -->
   <div class="footer__bottom">
-    <div class="footer__bottom-container container">
+    <div class="footer__bottom-container">
       <div class="footer__copyright">
         © 2025 ГАУЗ «Республиканская Клиническая больница»
       </div>
@@ -102,7 +102,7 @@ import RFIcon from '../assets/RF.svg';
   </div>
 </footer>
 
-<style lang="scss">
+<style lang="scss" is:global>
   .footer {
     width: 100%;
     background: white;
@@ -114,6 +114,9 @@ import RFIcon from '../assets/RF.svg';
       grid-template-columns: 1fr 1fr 1fr 1fr;
       gap: 40px;
       padding-bottom: 40px;
+      max-width: 1424px;
+      margin: 0 auto;
+      padding: 0 16px;
     }
 
     &__column {
@@ -218,9 +221,11 @@ import RFIcon from '../assets/RF.svg';
     }
 
     &__bottom-container {
+      max-width: 1424px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin: 0 auto;
     }
 
     &__copyright {

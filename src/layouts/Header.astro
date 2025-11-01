@@ -10,7 +10,7 @@ import MapIcon from '../components/icons/map.astro';
 ---
 <div>
 <header class="header" id="header">
-  <div class="header__container container">
+  <div class="header__container">
     <!-- Логотип -->
     <a class="header__logo" href="/">
       <Logo class="header__logo__svg"/>
@@ -390,7 +390,7 @@ import MapIcon from '../components/icons/map.astro';
   });
 </script>
 
-<style lang="scss">
+<style lang="scss" is:global>
    
   .header {
     width: 100%;
@@ -437,6 +437,10 @@ import MapIcon from '../components/icons/map.astro';
     &__container {
       align-items: center;
       justify-content: space-between;
+      display: flex;
+      justify-content: space-between;
+      max-width: 1393px;
+      margin: 0 auto;
     }
 
     &__logo {

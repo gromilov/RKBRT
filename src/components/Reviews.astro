@@ -3,6 +3,7 @@ import StarIcon from '../components/icons/star.astro';
 import PrevIcon from '../components/icons/prev.astro';
 import NextIcon from '../components/icons/next.astro';
 import QuoteIcon from '../components/icons/quote.astro';
+
 // Данные отзывов
 const reviewsData = [
   {
@@ -30,7 +31,6 @@ const reviewsData = [
     rating: 5,
     showFullText: false
   },
-
   {
     id: 4,
     author: "Мукаева Елена Юрьевна",
@@ -46,70 +46,126 @@ const reviewsData = [
   <!-- Заголовок раздела -->
   <h2 class="reviews-section__title">Отзывы</h2>
 
-  <div class="reviews-container">
-    {
-      reviewsData.map((review, index) => (
-        <div class="review-card" key={review.id}>
-          <!-- Заголовок карточки -->
-          <div class="review-card__header">
-            <h3 class="review-card__author">{review.author}</h3>
-            <QuoteIcon />
-          </div>
-
-          <!-- Рейтинг -->
-          <div class="review-card__rating">
-            {Array.from({ length: review.rating }).map((_, i) => (
-                <StarIcon />
-            ))}
-          </div>
-
-          <!-- Текст отзыва -->
-          <div class="review-card__content">
-            {review.date && (
-              <p class="review-card__date">{review.date}</p>
-            )}
-            <p class="review-card__text">
-              {review.doctor && (
-                <strong>{review.doitor}</strong>
-              )}
-              {review.text}
-            </p>
-            {review.id === 2 && (
-              <button class="review-card__read-more">
-                Читать полностью
-              </button>
-            )}
-          </div>
+  <!-- Карусель Owl Carousel -->
+  <div class="owl-carousel reviews-carousel">
+    {reviewsData.map((review) => (
+      <div class="review-card" key={review.id}>
+        <!-- Заголовок карточки -->
+        <div class="review-card__header">
+          <h3 class="review-card__author">{review.author}</h3>
+          <QuoteIcon />
         </div>
-      ))
-    }
+
+        <!-- Рейтинг -->
+        <div class="review-card__rating">
+          {Array.from({ length: review.rating }).map((_, i) => (
+            <StarIcon />
+          ))}
+        </div>
+
+        <!-- Текст отзыва -->
+        <div class="review-card__content">
+          <p class="review-card__text">
+            {review.doctor && (
+              <strong>{review.doctor}</strong>
+            )}
+            {review.text}
+          </p>
+          {review.id === 2 && (
+            <button class="review-card__read-more">
+              Читать полностью
+            </button>
+          )}
+        </div>
+      </div>
+    ))}
   </div>
 
   <!-- Навигация -->
   <div class="reviews-navigation">
-    
-    
     <div class="reviews-controls">
-      <button class="reviews-button reviews-button--prev">
-          <PrevIcon />
+      <button class="reviews-button reviews-button--prev owl-prev">
+        <PrevIcon />
       </button>
       <div class="reviews-pagination">
-      <div class="pagination-track">
-        <div class="pagination-progress"></div>
+        <div class="owl-dots" id="customDots"></div>
       </div>
-    </div>
-      <button class="reviews-button reviews-button--next">
-          <NextIcon />
+      
+      <button class="reviews-button reviews-button--next owl-next">
+        <NextIcon />
       </button>
     </div>
   </div>
 </div>
 
+
+
+<script>
+$(document).ready(function(){
+  $('.reviews-carousel').owlCarousel({
+    margin: 12,
+    nav: false, // Отключаем стандартные кнопки навигации
+    dots: true, // Включаем точки
+    dotsContainer: '#customDots', // Кастомный контейнер для точек
+    responsive: {
+      0: {
+        items: 1 // На мобильных - 1 отзыв
+      },
+      768: {
+        items: 2 // На планшетах - 2 отзыва
+      },
+      1024: {
+        items: 3 // На десктопах - 3 отзыва
+      }
+    },
+    onInitialized: updateProgress,
+    onTranslated: updateProgress
+  });
+
+  // Кастомные кнопки навигации
+  $('.reviews-button--next').click(function() {
+    $('.reviews-carousel').trigger('next.owl.carousel');
+  });
+  
+  $('.reviews-button--prev').click(function() {
+    $('.reviews-carousel').trigger('prev.owl.carousel');
+  });
+
+  // Функция для обновления прогресса
+  function updateProgress(event) {
+    const carousel = event.target;
+    const current = event.item.index + 1;
+    const total = event.item.count;
+    // Обновляем прогресс бар (если нужно)
+    const progress = (current / total) * 100;
+    $('.pagination-progress').css('width', progress + '%');
+  }
+
+  // Кастомные точки
+  $('.reviews-carousel').on('initialized.owl.carousel', function(event) {
+    const dots = $('#customDots');
+    dots.empty();
+    
+    for (let i = 0; i < event.item.count; i++) {
+      dots.append('<button class="owl-dot"><span></span></button>');
+    }
+    
+    // Обработчики для кастомных точек
+    $('.owl-dot').each(function(index) {
+      $(this).click(function() {
+        $('.reviews-carousel').trigger('to.owl.carousel', [index]);
+      });
+    });
+  });
+});
+</script>
+
 <style lang="scss" is:global>
 .reviews-section {
   max-width: 1416px;
-  margin: 0 auto;
   padding: 40px 0;
+  margin: 0 auto;
+  
 
   &__title {
     font-family: $font-family-primary;
@@ -122,11 +178,17 @@ const reviewsData = [
   }
 }
 
-.reviews-container {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
+/* Стили для Owl Carousel */
+.reviews-carousel {
   margin-bottom: 40px;
+  
+  .owl-stage {
+    display: flex;
+  }
+  
+  .owl-item {
+    // padding: 0 6px;
+  }
 }
 
 .review-card {
@@ -186,7 +248,6 @@ const reviewsData = [
     line-height: $line-height-relaxed;
     margin: 0;
     flex: 1;
-    
     strong {
       font-weight: $font-weight-semibold;
     }
@@ -212,38 +273,48 @@ const reviewsData = [
 
 .reviews-navigation {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  max-width: 828px;
+  width: 100%;
   margin: 0 auto;
 }
 
 .reviews-pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
-  max-width: 240px;
+  min-width: 100px;
+  width: 240px;
+  max-width: 100%;
 }
 
-.pagination-track {
-  width: 100%;
-  height: 2px;
-  background: #E2E3E5;
-  border-radius: 1px;
-  position: relative;
+/* Кастомные точки Owl Carousel */
+.owl-dots {
+  display: flex;
+  justify-content: center;
 }
 
-.pagination-progress {
-  width: 40px;
+.owl-dot {
+  width: 32px;
   height: 2px;
-  background: $color-primary;
-  border-radius: 1px;
-  position: absolute;
-  left: 0;
-  top: 0;
+  
+  border: none;
+  background: rgba(15, 23, 42, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+  
+  &.active,
+  &:hover {
+    background: $color-primary;
+  }
 }
 
 .reviews-controls {
   display: flex;
   gap: 12px;
+  align-items: center;
 }
 
 .reviews-button {
@@ -257,49 +328,30 @@ const reviewsData = [
   justify-content: center;
   cursor: pointer;
   transition: all $transition-normal;
-  position: relative;
   border: 1px solid rgba(15, 23, 42, 0.12);
-  
-//   &::before {
-//     content: '';
-//     position: absolute;
-//     top: 0;
-//     left: 0;
-//     right: 0;
-//     bottom: 0;
-    
-//   }
 
   &:hover {
     background: $color-bg-hover;
   }
 
-//   svg {
-//     width: 24px;
-//     height: 24px;
-//   }
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    
+    &:hover {
+      background: white;
+    }
+  }
 }
 
 /* Адаптивность */
 @media (max-width: 1440px) {
   .reviews-section {
-    padding: 40px 24px;
-  }
-  
-  .reviews-container {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 16px;
+    // padding: 40px 24px;
   }
 }
 
 @media (max-width: 1024px) {
-  .reviews-container {
-    grid-template-columns: 1fr;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-  
   .review-card {
     height: auto;
     min-height: 366px;
@@ -352,5 +404,11 @@ const reviewsData = [
     width: 100%;
     justify-content: center;
   }
+}
+
+/* Отключаем стандартные стили Owl Carousel для точек */
+.owl-carousel .owl-dots,
+.owl-carousel .owl-nav {
+  display: none !important;
 }
 </style>

@@ -11,26 +11,30 @@ import Header from "./Header.astro";
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<meta name="generator" content={Astro.generator} />
 		<title>Республиканская клиническая больница</title>
+    <!-- Подключение Owl Carousel CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
+
+    <!-- Подключение jQuery и Owl Carousel JS -->
+    <script is:inline  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script is:inline  src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+    <script is:inline  src="https://rkbrt.ru/wp-content/themes/rkb/css/grid.min.css?ver=5.6.16"></script>
 	</head>
   	<body>
     <!-- Header -->
     <Header />
     <!-- Основной контент с возможностью боковой панели -->
     <main class="main-content">
-      <div class="container">
-        <slot />
-      </div>
+      <slot />
     </main>
 
     <!-- Footer -->
     <Footer/>
-    
-
-
   </body>
 </html>
 
-<style lang="scss">
-
-
+<style lang="scss" is:global>
+// Ваши стили здесь
 </style>
+
+
