@@ -1,0 +1,180 @@
+---
+// src/components/EmployeesGrid.astro
+
+interface Employee {
+  id: string;
+  name: string;
+  position: string;
+  photo?: string;
+}
+
+interface Props {
+  title?: string;
+  employees: Employee[];
+}
+
+const { 
+  title = "Сотрудники",
+  employees = []
+} = Astro.props;
+---
+
+<section class="employees-section">
+  <h2 class="employees-section__title">{title}</h2>
+  
+  {employees.length > 0 ? (
+    <div class="employees-grid">
+      {employees.map((employee) => (
+        <div class="employee-card" data-id={employee.id}>
+          <div class="employee-card__photo">
+            {employee.photo ? (
+              <img 
+                src={employee.photo} 
+                alt={employee.name}
+                loading="lazy"
+              />
+            ) : (
+              <div class="employee-card__photo-placeholder"></div>
+            )}
+          </div>
+          
+          <div class="employee-card__info">
+            <h3 class="employee-card__name">{employee.name}</h3>
+            <p class="employee-card__position">{employee.position}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <div class="employees-empty">
+      <p>Сотрудники не найдены</p>
+    </div>
+  )}
+</section>
+
+<style lang="scss">
+.employees-section {
+  margin-top: 80px;
+  
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: $color-text-primary;
+    letter-spacing: -0.01em;
+    margin-bottom: 44px;
+  }
+}
+
+.employees-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  gap: 25px;
+}
+
+.employee-card {
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  
+  &:hover {
+    transform: translateY(-4px);
+  }
+  
+  &__photo {
+    width: 100%;
+    height: 270px;
+    border-radius: 24px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    background: #DBE7F7;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  
+  &__photo-placeholder {
+    width: 100%;
+    height: 100%;
+    background: #C4C4C4;
+    border-radius: 24px;
+  }
+  
+  &__info {
+    text-align: left;
+  }
+  
+  &__name {
+    font-size: 14px;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  
+  &__position {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.5;
+    margin: 0;
+  }
+}
+
+.employees-empty {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: #475569;
+  font-size: 14px;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .employees-grid {
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .employees-section {
+    margin-top: 60px;
+    
+    &__title {
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+  }
+  
+  .employees-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .employee-card {
+    &__photo {
+      height: 240px;
+    }
+  }
+  
+  .employees-empty {
+    padding: 32px 24px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .employees-grid {
+    max-width: 100%;
+  }
+  
+  .employee-card {
+    &__photo {
+      height: 200px;
+    }
+  }
+}
+</style>

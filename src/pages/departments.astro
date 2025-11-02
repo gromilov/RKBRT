@@ -6,6 +6,7 @@ import PartnersList from '../components/PartnersList.astro';
 import NewsSingle from '../components/NewsSingle.astro';
 import SearchBlock from '../components/SearchBlock.astro';
 import List from '../components/List.astro';
+import EmployeesGrid from '../components/EmployeesGrid.astro';
 
 // Данные для компонента
 const newsItem = {
@@ -92,6 +93,27 @@ const sidebarItems = [
   }
 ];
 
+const employeesData = [
+  {
+    id: "1",
+    name: "Юпатов Евгений Юрьевич",
+    position: "Акушер-гинеколог, шеф акушеро-гинекологической службы",
+    photo: "/images/employee.png"
+  },
+  {
+    id: "2", 
+    name: "Иванова Мария Петровна",
+    position: "Терапевт, заведующий терапевтическим отделением",
+    photo: "/images/employee.png"
+  },
+  {
+    id: "3",
+    name: "Петров Алексей Владимирович", 
+    position: "Хирург, ведущий специалист",
+    photo: "/images/employee.png"
+  }
+];
+
 ---
 <Layout>
   <NewsSingle 
@@ -104,6 +126,8 @@ const sidebarItems = [
       title="Все отделения" 
       list={departments} 
     />
+
+    <EmployeesGrid employees={employeesData} />
   </NewsSingle>
   <ContactForm />
   <PartnersList />
