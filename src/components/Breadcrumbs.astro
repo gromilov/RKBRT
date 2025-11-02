@@ -1,0 +1,64 @@
+---
+// src/components/Breadcrumbs.astro
+interface Props {
+  items: Array<{
+    title: string;
+    href?: string;
+  }>;
+}
+
+const { items } = Astro.props;
+---
+
+<div class="breadcrumbs">
+  {items.map((item, index) => (
+    <>
+      {item.href ? (
+        <a href={item.href} class="breadcrumbs__link">{item.title}</a>
+      ) : (
+        <span class="breadcrumbs__current">{item.title}</span>
+      )}
+      
+      {index < items.length - 1 && (
+        <span class="breadcrumbs__icon">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 12L10 8L6 4" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+      )}
+    </>
+  ))}
+</div>
+
+<style lang="scss" is:global>
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  &__icon {
+    position: relative;
+    transform: rotate(90deg);
+  }
+  
+  &__link {
+    font-size: 14px;
+    color: $color-primary;
+    text-decoration: none;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+  
+  &__current {
+    font-size: 14px;
+    color: $color-text-secondary;
+  }
+  
+  svg {
+    transform: rotate(-90deg);
+  }
+}
+</style>

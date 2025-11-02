@@ -4,14 +4,12 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PartnersList from '../components/PartnersList.astro';
 import NewsSingle from '../components/NewsSingle.astro';
-import Documents from './Documents.astro';
-
 
 // Данные для компонента
 const newsItem = {
-  title: "Личный кабинет пациента: ваши медицинские данные всегда под рукой",
+  title: "Центр компетенций",
   date: "24.09.2025 15:46",
-  image: "/images/RKB.png",
+  image: false,
   content: `
     <p>Уважаемые пациенты! Личный кабинет пациента – удобный инструмент для управления своими медицинскими данными.</p>
     
@@ -51,9 +49,29 @@ const documents = [
   }
 ];
 
+const sidebarItems = [
+  {
+    title: "Центр компетенций",
+    href: "#",
+    isActive: true
+  },
+  {
+    title: "История создания Центра компетенций",
+    href: "#"
+  },
+  {
+    title: "Программа обучающих семинаров по внутреннему контролю качества и безопасности медицинской деятельности по разделам ПР РЗН",
+    href: "#"
+  },
+  {
+    title: "Проведение диагностических аудитов в медицинской организации на соответствие",
+    href: "#"
+  }
+];
+
 const breadcrumbsItems = [
-  { title: "Пациентам", href: "/" },
-  { title: "Личный кабинет" }
+  { title: "Специалистам", href: "/" },
+  { title: "Центр компетенций" }
 ];
 ---
 
@@ -61,13 +79,10 @@ const breadcrumbsItems = [
   <NewsSingle 
     newsItem={newsItem}
     documents={documents}
+    sidebarItems={sidebarItems}
     breadcrumbsItems={breadcrumbsItems}
-    showSidebar={false}
-  >
-  	{documents.length > 0 && (
-      <Documents documents={documents} />
-	)}
-  </NewsSingle>
+    showSidebar={true}
+  />
   <ContactForm />
   <PartnersList />
 </Layout>

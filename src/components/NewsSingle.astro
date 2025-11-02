@@ -1,0 +1,114 @@
+---
+// src/components/NewsSingle.astro
+import Breadcrumbs from './Breadcrumbs.astro';
+import PostContent from './PostContent.astro';
+
+import NewsSidebar from './NewsSidebar.astro';
+
+interface NewsItem {
+  title: string;
+  date: string;
+  image: string;
+  content: string;
+}
+
+
+
+interface SidebarItem {
+  title: string;
+  href: string;
+  isActive?: boolean;
+}
+
+interface BreadcrumbItem {
+  title: string;
+  href?: string;
+}
+
+interface Props {
+  newsItem: NewsItem;
+  documents?: Document[];
+  sidebarItems?: SidebarItem[];
+  breadcrumbsItems: BreadcrumbItem[];
+  showSidebar?: boolean;
+}
+
+const {
+  newsItem,
+  sidebarItems = [],
+  breadcrumbsItems,
+  showSidebar = true
+} = Astro.props;
+---
+
+<div class="news-single-page">
+  {showSidebar && sidebarItems.length > 0 && (
+    <NewsSidebar items={sidebarItems} />
+  )}
+  
+  <div class="news-single-page__content">
+    <Breadcrumbs items={breadcrumbsItems} />
+    <PostContent newsItem={newsItem} />
+    <slot />
+  </div>
+</div>
+
+<style lang="scss">
+.news-single-page {
+  display: flex;
+  flex-direction: row;
+  max-width: $container-size;
+  margin: 0 auto;
+}
+
+.news-single-page__content {
+  max-width: $container-post-size;
+  margin: 0 auto;
+  padding: 40px 16px;
+  flex: 1;
+  
+  &--full {
+    max-width: $container-size;
+  }
+}
+
+/* Адаптивность */
+@media (max-width: $breakpoint-xxl) {
+  .news-single-page {
+    padding: 40px 24px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .news-single-page {
+    flex-direction: column;
+  }
+  
+  .news-sidebar {
+    position: static;
+    height: auto;
+    max-width: none;
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 20px 0;
+    border-right: none;
+    border-bottom: 1px solid $color-border;
+    
+    &__link {
+      padding: 8px 16px;
+      white-space: nowrap;
+      
+      &--active {
+        border-right: none;
+        border-bottom: 1px solid $color-primary;
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .news-single-page {
+    padding: 32px 16px;
+  }
+}
+</style>

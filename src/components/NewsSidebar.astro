@@ -1,0 +1,57 @@
+---
+// src/components/NewsSidebar.astro
+
+interface SidebarItem {
+  title: string;
+  href: string;
+  isActive?: boolean;
+}
+
+interface Props {
+  items: SidebarItem[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="news-sidebar">
+  {items.map((item) => (
+    <a 
+      href={item.href} 
+      class={`news-sidebar__link ${item.isActive ? 'news-sidebar__link--active' : ''}`}
+    >
+      {item.title}
+    </a>
+  ))}
+</div>
+
+<style lang="scss">
+.news-sidebar {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  max-width: 320px;
+  width: 100%;
+  height: 100vh;
+  border-right: 1px solid $color-border;
+  padding: 40px 0;
+  gap: 24px;
+  
+  &__link {
+    display: flex;
+    text-decoration: none;
+    padding: 0 24px;
+    color: $color-text-secondary;
+    transition: color 0.2s ease;
+    
+    &:hover {
+      color: $color-primary;
+    }
+    
+    &--active {
+      border-right: 1px solid $color-primary;
+      color: $color-primary;
+    }
+  }
+}
+</style>

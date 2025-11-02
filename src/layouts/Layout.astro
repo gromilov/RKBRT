@@ -15,7 +15,6 @@ import '../styles/global.scss';
     <!-- Подключение Owl Carousel CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.theme.default.min.css">
-
     <!-- Подключение jQuery и Owl Carousel JS -->
     <script is:inline  src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script is:inline  src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
@@ -28,7 +27,6 @@ import '../styles/global.scss';
     <main class="main-content">
       <slot />
     </main>
-
     <!-- Footer -->
     <Footer/>
   </body>
@@ -42,7 +40,6 @@ import '../styles/global.scss';
 }
 
 body {
-  
   color: $color-text-primary;
   line-height: 1.6;
   background: $color-bg-lighter;
@@ -60,49 +57,17 @@ body {
   border: 1px solid rgba(15, 23, 42, 0.12);
   border-radius: 28px;
   padding: 16px 32px;
-  
   font-size: 16px;
   color: #010101;
   cursor: pointer;
   transition: all 0.3s ease;
   text-decoration: none;
-
   &:hover {
     background: #f8fafc;
     
   }
 }
 
-.breadcrumbs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 32px;
-
-  &__icon {
-    position: relative;
-    transform: rotate(90deg);
-  }
-  
-  &__link {
-    font-size: 14px;
-    color: #1E6BD0;
-    text-decoration: underline;
-    
-    &:hover {
-      text-decoration: none;
-    }
-  }
-  
-  &__current {
-    font-size: 14px;
-    color: #475569;
-  }
-  
-  svg {
-    transform: rotate(-90deg);
-  }
-}
 </style>
 
 
