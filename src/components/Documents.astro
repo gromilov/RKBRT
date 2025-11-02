@@ -1,6 +1,9 @@
 ---
 // src/components/Documents.astro
-import DocumentIcon from '../assets/document.svg';
+import PDFIcon from '../assets/PDF.svg';
+import DOCSIcon from '../assets/DOCS.svg';
+import JPGIcon from '../assets/JPG.svg';
+import RTFIcon from '../assets/RTF.svg';
 import DownloadIcon from '../assets/download.svg';
 
 interface Document {
@@ -25,9 +28,25 @@ const {
   
   <div class="documents-grid">
     {documents.map((doc, index) => (
-      <div class="document-card" key={index}>
-        <div class="document-card__icon"><DocumentIcon /></div>
+      <div class="document-card" key={index} >
+        <div class="document-card__icon"
+        style={
+            `color: ${doc.format === 'PDF' ? '#E53E3E' :
+                doc.format === 'DOCS' ? '#3182CE' :
+                doc.format === 'JPG' ? '#D69E2E' :
+                doc.format === 'RTF' ? '#38A169' :
+                '#E53E3E'
+            }`
+        }
         
+        >
+            {doc.format === 'PDF' ? (<PDFIcon />) :
+             doc.format === 'DOCS' ? (<DOCSIcon />) :
+             doc.format === 'JPG' ? (<JPGIcon />) :
+             doc.format === 'RTF' ? (<RTFIcon />) :
+             (<PDFIcon />)
+            }
+        </div>
         <div class="document-card__info">
           <h3 class="document-card__title">{doc.title}</h3>
           <div class="document-card__meta">
@@ -50,7 +69,7 @@ const {
   margin-top: 80px;
   
   &__title {
-    font-size: 32px;
+    font-size: 24px;
     font-weight: bold;
     color: $color-text-primary;
     letter-spacing: -0.01em;
@@ -106,6 +125,12 @@ const {
     font-weight: 600;
     color: $color-text-primary;
     margin-bottom: 4px;
+    /* Ограничение текста до 1 строк */
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   
   &__meta {

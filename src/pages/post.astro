@@ -4,8 +4,7 @@ import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PartnersList from '../components/PartnersList.astro';
 import NewsSingle from '../components/NewsSingle.astro';
-import Documents from './Documents.astro';
-
+import Documents from '../components/Documents.astro';
 
 // Данные для компонента
 const newsItem = {
@@ -60,7 +59,6 @@ const breadcrumbsItems = [
 <Layout>
   <NewsSingle 
     newsItem={newsItem}
-    documents={documents}
     breadcrumbsItems={breadcrumbsItems}
     showSidebar={false}
   >

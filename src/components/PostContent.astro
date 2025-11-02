@@ -16,14 +16,14 @@ interface Props {
 const { newsItem } = Astro.props;
 ---
 
-<!-- Заголовок новости -->
+  <!-- Заголовок новости -->
 <h1 class="news-single__title">{newsItem.title}</h1>
 
 <!-- Дата публикации -->
-<div class="news-single__date">
+{newsItem.date && (<div class="news-single__date">
   <span><CalendarIcon /></span>
   <span>{newsItem.date}</span>
-</div>
+</div>)}
 
 <!-- Изображение новости -->
 {newsItem.image && (<div class="news-single__image">
@@ -31,10 +31,11 @@ const { newsItem } = Astro.props;
 </div>)}
 
 <!-- Контент новости -->
-<div class="news-single__content" set:html={newsItem.content}></div>
+{newsItem.content && (<div class="news-single__content" set:html={newsItem.content}></div>)}
 
 <style lang="scss" is:global>
 .news-single {
+  
   &__title {
     font-size: 48px;
     font-weight: bold;

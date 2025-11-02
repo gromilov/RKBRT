@@ -9,6 +9,7 @@ import MapIcon from '../components/icons/map.astro';
 // Компонент Header с меню
 ---
 <div>
+<div class="header__offset"></div>
 <header class="header" id="header">
   <div class="header__container">
     <!-- Логотип -->
@@ -159,7 +160,7 @@ import MapIcon from '../components/icons/map.astro';
         <h3 class="menu-category">О БОЛЬНИЦЕ</h3>
         <div class="menu-divider"></div>
         <ul class="menu-list">
-          <li><a href="#" class="menu-link">Службы и отделения</a></li>
+          <li><a href="/departments" class="menu-link">Службы и отделения</a></li>
           <li><a href="#" class="menu-link">Руководство</a></li>
           <li><a href="#" class="menu-link">Больница сегодня</a></li>
           <li><a href="#" class="menu-link">Партнеры</a></li>
@@ -393,11 +394,20 @@ import MapIcon from '../components/icons/map.astro';
 <style lang="scss" is:global>
    
   .header {
+    position: fixed;
+    top: 0;
     width: 100%;
     height: $header-height;
     background: white;
     border-bottom: 1px solid $color-border;
     padding: 12px;
+    
+    z-index: $z-index-header;
+    &__offset {
+      height: $header-height;
+      width: 100%;
+      
+    }
     &.active {
         border-bottom: 1px solid $color-primary;
         background: $color-primary;
@@ -432,6 +442,7 @@ import MapIcon from '../components/icons/map.astro';
         .language-option:hover {
             background: rgba(255, 255, 255, 0.1);
         }
+        
     }
 
     &__container {
@@ -948,6 +959,12 @@ import MapIcon from '../components/icons/map.astro';
   .header {
     height: 60px;
     padding: 4px 12px;
+
+    &__offset {
+      height: 60px;
+      width: 100%;
+      
+    }
     
     &__logo {
       padding-top: 4px;

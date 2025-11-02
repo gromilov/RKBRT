@@ -1,0 +1,136 @@
+---
+// src/components/listList.astro
+
+interface Department {
+  id: string;
+  name: string;
+}
+
+interface Props {
+  title?: string;
+  list: Department[];
+}
+
+const { 
+  title = "Все отделения",
+  list = []
+} = Astro.props;
+---
+
+<section class="list-section">
+  <h2 class="list-section__title">{title}</h2>
+  {list.length > 0 ? (
+    <div class="list-list">
+      {list.map((item, index) => (
+        <a href="#" class="list-item" data-id={item.id}>
+          <div class="list-item__content">
+            <span class="list-item__name">{item.name}</span>
+            <svg class="list-item__arrow" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 4L10 8L6 12" stroke="currentColor" stroke-opacity="0.48" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          {index < list.length - 1 && <div class="list-item__divider"></div>}
+        </a>
+      ))}
+    </div>
+  ) : (
+    <div class="list-empty">
+      <p>Отделения не найдены</p>
+    </div>
+  )}
+</section>
+
+<style lang="scss" is:global>
+.list-section {
+  margin-top: 80px;
+  &__title {
+    font-size: 32px;
+    font-weight: bold;
+    color: $color-text-primary;
+    letter-spacing: -0.01em;
+    margin-bottom: 24px;
+  }
+}
+
+.list-list {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.list-item {
+    text-decoration: none;
+    color: $color-text-primary;
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px;
+    min-height: 56px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-decoration: none;
+    color: $color-text-primary;
+    &:hover {
+      background: rgba(219, 231, 247, 0.3);
+    }
+  }
+  
+  &__name {
+    font-size: 14px;
+    font-family: 'Gilroy', sans-serif;
+    color: $color-text-primary;
+    text-decoration: none;
+    color: $color-text-primary;
+    flex: 1;
+  }
+  
+  &__arrow {
+    color: $color-text-primary;
+    opacity: 0.48;
+    flex-shrink: 0;
+    margin-left: 16px;
+  }
+  
+  &__divider {
+    height: 1px;
+    background: #D9DADD;
+  }
+}
+
+.list-empty {
+  background: white;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+  border-radius: 16px;
+  padding: 40px;
+  text-align: center;
+  color: #475569;
+  font-size: 14px;
+}
+
+@media (max-width: $breakpoint-md) {
+  .list-section {
+    margin-top: 60px;
+    
+    &__title {
+      font-size: 24px;
+      margin-bottom: 32px;
+    }
+  }
+  
+  .list-item {
+    &__content {
+      padding: 12px 16px;
+    }
+    
+    &__divider {
+      margin: 0 12px;
+    }
+  }
+  
+  .list-empty {
+    padding: 32px 24px;
+  }
+}
+</style>

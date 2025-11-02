@@ -1,0 +1,182 @@
+---
+// src/components/SearchBlock.astro
+import SearchIcon from '../assets/search.svg';
+
+interface Props {
+  placeholder?: string;
+  examples?: string[];
+}
+
+const { 
+  placeholder = "Поиск",
+  examples = ["Аптека Черемисин", "Алексей Евгеньевич", "Научный центр"]
+} = Astro.props;
+---
+
+<section class="search-section">
+  <h1 class="search-section__title">Поиск служб и специалистов</h1>
+  
+  <div class="search-container">
+    <div class="search-input-wrapper">
+      <div class="search-icon">
+        <SearchIcon />
+      </div>
+      <input 
+        type="text" 
+        class="search-input" 
+        placeholder={placeholder}
+      />
+    </div>
+  </div>
+  
+  <div class="search-examples">
+    <span class="search-examples__label">Например: </span>
+    {examples.map((example, index) => (
+      <>
+        <span class="search-examples__item">{example}</span>{index < examples.length - 1 && (<span class="search-examples__separator">,</span>)}
+      </>
+    ))}
+  </div>
+</section>
+
+<style lang="scss">
+.search-section {
+  background: #DBE7F7;
+  border-radius: 24px;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    width: 518px;
+    height: 518px;
+    right: 84px;
+    top: -235px;
+    background: #1E6BD0;
+    opacity: 0.06;
+    border-radius: 50%;
+  }
+  
+  &::after {
+    content: '';
+    position: absolute;
+    width: 442px;
+    height: 442px;
+    left: -147px;
+    bottom: -139px;
+    background: #1E6BD0;
+    opacity: 0.06;
+    border-radius: 50%;
+  }
+}
+
+.search-section__title {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-text-primary;
+  letter-spacing: -0.01em;
+  margin-bottom: 34px;
+  position: relative;
+  z-index: 1;
+}
+
+.search-container {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 16px;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-icon {
+  position: absolute;
+  left: 24px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 24px;
+  height: 24px;
+  color: $color-text-primary;
+  opacity: 0.48;
+  z-index: 2;
+}
+
+.search-input {
+  width: 100%;
+  height: 56px;
+  padding: 0 20px 0 64px;
+  background: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 14px;
+  font-family: 'Gilroy', sans-serif;
+  color: $color-text-primary;
+  
+  &::placeholder {
+    color: #8C9099;
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(30, 107, 208, 0.2);
+  }
+}
+
+.search-examples {
+  position: relative;
+  z-index: 1;
+  font-size: 14px;
+  color: #475569;
+  
+  &__label {
+    color: #475569;
+  }
+  
+  &__item {
+    color: #1E6BD0;
+    cursor: pointer;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+  
+  &__separator {
+    color: #475569;
+    margin: 0 4px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .search-section {
+    padding: 32px 24px;
+    
+    &::before,
+    &::after {
+      display: none;
+    }
+  }
+  
+  .search-section__title {
+    font-size: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .search-icon {
+    left: 20px;
+  }
+  
+  .search-input {
+    padding-left: 56px;
+  }
+  
+  .search-examples {
+    font-size: 12px;
+  }
+}
+</style>

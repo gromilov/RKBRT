@@ -1,0 +1,98 @@
+---
+// src/pages/news/single.astro
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PartnersList from '../components/PartnersList.astro';
+import NewsSingle from '../components/NewsSingle.astro';
+import Documents from '../components/Documents.astro';
+
+// Данные для компонента
+const newsItem = {
+  title: "Документы",
+  date: "",
+  image: "",
+  content: ``
+};
+
+
+const documents = [
+      {
+        title: "Руководство пользователя Порядки и стандарты оказания медицинской помощи",
+        format: "PDF",
+        size: "2 мб"
+      },
+      {
+        title: "Инструкция по регистрации",
+        format: "RTF",
+        size: "2 мб"
+      },
+      {
+        title: "Памятка пациента",
+        format: "DOCS",
+        size: "2 мб"
+      },
+      {
+        title: "Памятка пациента",
+        format: "JPG",
+        size: "2 мб"
+      },
+
+    ] 
+
+const sidebarItems = [
+  {
+    title: "Лицензия и устав ГАУЗ 'РКБ МЗ РТ'",
+    href: "#",
+    isActive: true,
+    
+  },
+  {
+    title: "Патенты и изобретения",
+    href: "#"
+  },
+  {
+    title: "Свидетельства",
+    href: "#"
+  },
+  {
+    title: "Законы РФ",
+    href: "#"
+  },
+  {
+    title: "Порядки и стандарты оказания медицинской помощи",
+    href: "#"
+  },
+  {
+    title: "Правила, порядки, стандарты",
+    href: "#"
+  },
+  {
+    title: "Приказы, постановления, распоряжения",
+    href: "#"
+  },
+  {
+    title: "Результаты проведения специальной оценки условий труда",
+    href: "#"
+  },
+];
+
+---
+
+<Layout>
+  <NewsSingle 
+    newsItem={newsItem}
+    sidebarItems={sidebarItems}
+    showSidebar={true}
+  >
+    {sidebarItems.map((item, index) => (
+      <>
+        <Documents 
+          title={item.title} 
+          documents={documents} 
+        />
+      </>
+    ))}
+  </NewsSingle>
+  <ContactForm />
+  <PartnersList />
+</Layout>

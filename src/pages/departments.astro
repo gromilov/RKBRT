@@ -1,0 +1,110 @@
+---
+// src/pages/news/single.astro
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PartnersList from '../components/PartnersList.astro';
+import NewsSingle from '../components/NewsSingle.astro';
+import SearchBlock from '../components/SearchBlock.astro';
+import List from '../components/List.astro';
+
+// Данные для компонента
+const newsItem = {
+  title: "",
+  date: "",
+  image: "",
+  content: ``
+};
+
+const departments = [
+  { id: "1", name: "Акушерский консультативно-диагностический центр" },
+  { id: "2", name: "Акушерское отделение" },
+  { id: "3", name: "Аптека" },
+  { id: "4", name: "Гастроэнтерологическое отделение"},
+  { id: "5", name: "Гинекологическое отделение" },
+  { id: "6", name: "Гастроэнтерологическое отделение" },
+];
+
+const sidebarItems = [
+  {
+    title: "Все отделения",
+    href: "#",
+    isActive: true,
+  },
+  {
+    title: "Административно-хозяйственная",
+    href: "#"
+  },
+  {
+    title: "Акушерско-гинекологическая",
+    href: "#"
+  },
+  {
+    title: "Диагностическая",
+    href: "#"
+  },
+  {
+    title: "Диагностическая (Поликлиника)",
+    href: "#"
+  },
+  {
+    title: "Канцелярия",
+    href: "#"
+  },
+  {
+    title: "Клинико-экспертная",
+    href: "#"
+  },
+  {
+    title: "Научный центр",
+    href: "#"
+  },
+  {
+    title: "Отдел кадров",
+    href: "#"
+  },
+  {
+    title: "Отделение организации платных услуг",
+    href: "#"
+  },
+  {
+    title: "Пресс-служба",
+    href: "#"
+  },
+  {
+    title: "Профсоюз РКБ",
+    href: "#"
+  },
+  {
+    title: "Республиканский центр медицины катастроф",
+    href: "#"
+  },
+  {
+    title: "Спасская ЦРБ",
+    href: "#"
+  },
+  {
+    title: "Терапевтическая",
+    href: "#"
+  },
+  {
+    title: "Терапевтическая",
+    href: "#"
+  }
+];
+
+---
+<Layout>
+  <NewsSingle 
+    newsItem={newsItem}
+    sidebarItems={sidebarItems}
+    showSidebar={true}
+  >
+    <SearchBlock />
+    <List
+      title="Все отделения" 
+      list={departments} 
+    />
+  </NewsSingle>
+  <ContactForm />
+  <PartnersList />
+</Layout>
