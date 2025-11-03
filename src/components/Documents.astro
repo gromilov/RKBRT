@@ -48,7 +48,7 @@ const {
             }
         </div>
         <div class="document-card__info">
-          <h3 class="document-card__title">{doc.title}</h3>
+          <div class="document-card__title">{doc.title}</div>
           <div class="document-card__meta">
             <span class="document-card__format">{doc.format}</span>
             <span class="document-card__separator">•</span>
@@ -79,7 +79,7 @@ const {
 
 .documents-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(425px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
   gap: 12px;
 }
 

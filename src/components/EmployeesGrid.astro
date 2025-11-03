@@ -25,7 +25,7 @@ const {
   {employees.length > 0 ? (
     <div class="employees-grid">
       {employees.map((employee) => (
-        <div class="employee-card" data-id={employee.id}>
+        <a href="/profile" class="employee-card" data-id={employee.id}>
           <div class="employee-card__photo">
             {employee.photo ? (
               <img 
@@ -42,7 +42,7 @@ const {
             <h3 class="employee-card__name">{employee.name}</h3>
             <p class="employee-card__position">{employee.position}</p>
           </div>
-        </div>
+        </a>
       ))}
     </div>
   ) : (
@@ -74,6 +74,8 @@ const {
 .employee-card {
   cursor: pointer;
   transition: transform 0.2s ease;
+  text-decoration: none;
+  color: $color-text-primary;
   
   &:hover {
     transform: translateY(-4px);

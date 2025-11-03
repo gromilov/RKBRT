@@ -7,6 +7,7 @@ interface NewsItem {
   date: string;
   image: string;
   content: string;
+  subtitle: string;
 }
 
 interface Props {
@@ -25,6 +26,10 @@ const { newsItem } = Astro.props;
   <span>{newsItem.date}</span>
 </div>)}
 
+{newsItem.subtitle && (<p class="news-single__subtitle">
+  <span>{newsItem.subtitle}</span>
+</p>)}
+
 <!-- Изображение новости -->
 {newsItem.image && (<div class="news-single__image">
   <img src={newsItem.image} alt={newsItem.title} />
@@ -32,10 +37,8 @@ const { newsItem } = Astro.props;
 
 <!-- Контент новости -->
 {newsItem.content && (<div class="news-single__content" set:html={newsItem.content}></div>)}
-
 <style lang="scss" is:global>
 .news-single {
-  
   &__title {
     font-size: 48px;
     font-weight: bold;
@@ -76,21 +79,6 @@ const { newsItem } = Astro.props;
     font-size: 18px;
     line-height: 1.6;
     color: $color-text-primary;
-    
-    h3 {
-      font-size: 32px;
-      font-weight: bold;
-      margin: 48px 0 24px;
-      letter-spacing: -0.01em;
-    }
-    
-    p {
-      margin-bottom: 24px;
-    }
-    
-    strong {
-      font-weight: 600;
-    }
   }
 }
 

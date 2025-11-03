@@ -1,0 +1,171 @@
+---
+// src/components/ProfileReviews.astro
+
+import StarIcon from './icons/star.astro';
+
+interface Review {
+  id: string;
+  author: string;
+  text: string;
+  rating: number;
+  date?: string;
+  doctor?: string;
+}
+
+interface Props {
+  reviews: Review[];
+}
+
+const { reviews = [] } = Astro.props;
+---
+
+<section class="profile-reviews">
+  {reviews.map((review) => (
+    <article class="review-item" key={review.id}>
+      <div class="review-item__header">
+        <h3 class="review-item__author">{review.author}</h3>
+        
+      </div>
+      <div class="review-item__rating">
+          {Array.from({ length: 5 }).map((_, index) => (
+            <StarIcon 
+              class={`review-item__star ${index < review.rating ? 'review-item__star--active' : ''}`}
+            />
+          ))}
+        </div>
+      
+      <div class="review-item__content">
+        {review.doctor && (
+          <strong class="review-item__doctor">{review.doctor}</strong>
+        )}
+        <p class="review-item__text">{review.text}</p>
+      </div>
+    </article>
+  ))}
+  
+  {reviews.length === 0 && (
+    <div class="profile-reviews__empty">
+      <p>Пока нет отзывов</p>
+    </div>
+  )}
+</section>
+
+<style lang="scss">
+.profile-reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-top: 40px;
+}
+
+.review-item {
+  padding-bottom: 32px;
+  
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+  
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+  
+  &__author {
+    font-size: 18px;
+    font-weight: 600;
+    color: $color-text-primary;
+    margin: 0;
+    line-height: 1.4;
+  }
+  
+  &__rating {
+    display: flex;
+    gap: 2px;
+    flex-shrink: 0;
+    margin-bottom: 12px;
+  }
+  
+  &__star {
+    width: 20px;
+    height: 20px;
+    color: #E5E7EB;
+    
+    &--active {
+      color: #FACC15;
+    }
+  }
+  
+  &__content {
+    color: $color-text-primary;
+  }
+  
+  &__doctor {
+    font-weight: 600;
+    display: inline;
+  }
+  
+  &__text {
+    font-size: 18px;
+    line-height: 1.6;
+    margin: 0;
+    display: inline;
+    
+    &:not(:has(+ .review-item__doctor)) {
+      display: block;
+    }
+  }
+}
+
+.profile-reviews__empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: #475569;
+  font-size: 16px;
+}
+
+@media (max-width: $breakpoint-md) {
+  .profile-reviews {
+    gap: 24px;
+    margin-top: 32px;
+  }
+  
+  .review-item {
+    padding-bottom: 24px;
+    
+    &__header {
+      flex-direction: column;
+      gap: 12px;
+      align-items: flex-start;
+    }
+    
+    &__author {
+      font-size: 16px;
+    }
+    
+    &__text {
+      font-size: 16px;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .profile-reviews {
+    gap: 20px;
+  }
+  
+  .review-item {
+    padding-bottom: 20px;
+    
+    &__text {
+      font-size: 14px;
+    }
+  }
+  
+  .profile-reviews__empty {
+    padding: 40px 20px;
+  }
+}
+</style>

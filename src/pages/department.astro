@@ -1,17 +1,15 @@
 ---
-// src/pages/news/single.astro
 import Layout from '../layouts/Layout.astro';
 import ContactForm from '../components/ContactForm.astro';
 import PartnersList from '../components/PartnersList.astro';
 import NewsSingle from '../components/NewsSingle.astro';
-import SearchBlock from '../components/SearchBlock.astro';
-import List from '../components/ui/List.astro';
 import EmployeesGrid from '../components/EmployeesGrid.astro';
-
+import EmployeeProfile from '../components/EmployeeProfile.astro';
+import Tabs from '../components/ui/Tabs.astro';
 
 // Данные для компонента
 const newsItem = {
-  title: "",
+  title: "Акушерский консультативно-диагностический центр",
   date: "",
   image: "",
   content: ``
@@ -115,21 +113,48 @@ const employeesData = [
   }
 ];
 
+const employeeData = {
+  id: "1",
+  name: "Черемисин Алексей Евгеньевич",
+  position: "Заведующий отделением. Акушер-гинеколог",
+  department: "Родильное отделение",
+  role: "Руководитель",
+  education: [
+    "Окончил лечебный факультет Оренбургской Государственной Медицинской Академии в 2006 году, прошел ординатуру по специальности акушерство и гинекология на базе городского клинического перинатального центра в 2006-2008 годах"
+  ],
+  photo: "/images/employee1.png"
+};
+
+
+const breadcrumbsItems = [
+  { title: "Акушерско-гинекологическая", href: "/departments" },
+  { title: "Акушерский консультативно-диагностический центр"},
+ 
+];
+
+const tabs = [
+  { id: "about", label: "Об отделении", isActive: true },
+  { id: "reviews", label: "Сотрудники", isActive: false }
+]
+
 ---
 <Layout>
   <NewsSingle 
     newsItem={newsItem}
     sidebarItems={sidebarItems}
+    breadcrumbsItems={breadcrumbsItems}
     showSidebar={true}
   >
-    <SearchBlock />
-    <List
-      title="Все отделения" 
-      list={departments} 
-    />
-
+    <Tabs tabs={tabs} />
+    <p>
+      Акушерский консультативно-диагностический центр оказывает два вида помощи: Дистанционно посредством аудио- и телеконсультаций врачам, оказывающим медицинскую помощь (виртуальный обход); непосредственно пациенту путем выезда (санитарная авиация) в медицинскую организацию, где находится пациент.
+    </p>
+    <EmployeeProfile employee={employeeData} />
+    <h2>Основные цели и задачи отделения являются:</h2>
     <EmployeesGrid employees={employeesData} />
   </NewsSingle>
+
+  
   <ContactForm />
   <PartnersList />
 </Layout>

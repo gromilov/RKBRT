@@ -1,0 +1,189 @@
+---
+// src/pages/news/single.astro
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PartnersList from '../components/PartnersList.astro';
+import NewsSingle from '../components/NewsSingle.astro';
+import EmployeesGrid from '../components/EmployeesGrid.astro';
+import EmployeeProfile from '../components/EmployeeProfile.astro';
+import Tabs from '../components/ui/Tabs.astro';
+import ProfileReviews from '../components/ProfileReviews.astro';
+
+// Данные для компонента
+const newsItem = {
+  title: "Акушерский консультативно-диагностический центр",
+  date: "",
+  image: "",
+  content: ``
+};
+
+const departments = [
+  { id: "1", name: "Акушерский консультативно-диагностический центр" },
+  { id: "2", name: "Акушерское отделение" },
+  { id: "3", name: "Аптека" },
+  { id: "4", name: "Гастроэнтерологическое отделение"},
+  { id: "5", name: "Гинекологическое отделение" },
+  { id: "6", name: "Гастроэнтерологическое отделение" },
+];
+
+const sidebarItems = [
+  {
+    title: "Все отделения",
+    href: "/department",
+    isActive: true,
+  },
+  {
+    title: "Административно-хозяйственная",
+    href: "/department"
+  },
+  {
+    title: "Акушерско-гинекологическая",
+    href: "/department"
+  },
+  {
+    title: "Диагностическая",
+    href: "/department"
+  },
+  {
+    title: "Диагностическая (Поликлиника)",
+    href: "/department"
+  },
+  {
+    title: "Канцелярия",
+    href: "/department"
+  },
+  {
+    title: "Клинико-экспертная",
+    href: "/department"
+  },
+  {
+    title: "Научный центр",
+    href: "/department"
+  },
+  {
+    title: "Отдел кадров",
+    href: "/department"
+  },
+  {
+    title: "Отделение организации платных услуг",
+    href: "/department"
+  },
+  {
+    title: "Пресс-служба",
+    href: "/department"
+  },
+  {
+    title: "Профсоюз РКБ",
+    href: "/department"
+  },
+  {
+    title: "Республиканский центр медицины катастроф",
+    href: "/department"
+  },
+  {
+    title: "Спасская ЦРБ",
+    href: "/department"
+  },
+  {
+    title: "Терапевтическая",
+    href: "/department"
+  },
+  {
+    title: "Терапевтическая",
+    href: "/department"
+  }
+];
+
+const employeesData = [
+  {
+    id: "1",
+    name: "Юпатов Евгений Юрьевич",
+    position: "Акушер-гинеколог, шеф акушеро-гинекологической службы",
+    photo: "/images/employee.png"
+  },
+  {
+    id: "2", 
+    name: "Иванова Мария Петровна",
+    position: "Терапевт, заведующий терапевтическим отделением",
+    photo: "/images/employee.png"
+  },
+  {
+    id: "3",
+    name: "Петров Алексей Владимирович", 
+    position: "Хирург, ведущий специалист",
+    photo: "/images/employee.png"
+  }
+];
+
+const employeeData = {
+  id: "1",
+  name: "Черемисин Алексей Евгеньевич",
+  position: "Заведующий отделением. Акушер-гинеколог",
+  department: "Родильное отделение",
+  role: "Руководитель",
+  education: [
+    "Окончил лечебный факультет Оренбургской Государственной Медицинской Академии в 2006 году, прошел ординатуру по специальности акушерство и гинекология на базе городского клинического перинатального центра в 2006-2008 годах"
+  ],
+  photo: "/images/employee1.png"
+};
+
+
+const breadcrumbsItems = [
+  { title: "Акушерско-гинекологическая", href: "/departments" },
+  { title: "Акушерский консультативно-диагностический центр",  href: "/department" },
+  { title: "Юпатов Евгений Юрьевич" }
+];
+
+const tabs = [
+  { id: "about", label: "О специалисте", isActive: true },
+  { id: "reviews", label: "Отзывы", isActive: false }
+]
+
+const reviewsData = [
+  {
+    id: "1",
+    author: "Мукаева Елена Юрьевна",
+    text: "От всей души хочу выразить свою благодарность Сабирову Акмалу Абдираимович. Акмал Адираимович профессионал, хороший специалист своего дела и просто хороший человек с чувством юмора. Более 2х часов провел операцию, всё объяснил, дал рекомендации. Надеюсь всё будет хорошо. Он человек с золотыми руками и большой душой.",
+    rating: 5,
+    doctor: ""
+  },
+  {
+    id: "2",
+    author: "Мукаева Елена Юрьевна",
+    text: "От всей души хочу выразить свою благодарность Сабирову Акмалу Абдираимович. Акмал Адираимович профессионал, хороший специалист своего дела и просто хороший человек с чувством юмора. Более 2х часов провел операцию, всё объяснил, дал рекомендации. Надеюсь всё будет хорошо. Он человек с золотыми руками и большой душой.",
+    rating: 5,
+    doctor: ""
+  },
+  {
+    id: "3",
+    author: "Мукаева Елена Юрьевна",
+    text: "От всей души хочу выразить свою благодарность Сабирову Акмалу Абдираимович. Акмал Адираимович профессионал, хороший специалист своего дела и просто хороший человек с чувством юмора. Более 2х часов провел операцию, всё объяснил, дал рекомендации. Надеюсь всё будет хорошо. Он человек с золотыми руками и большой душой.",
+    rating: 5,
+    doctor: ""
+  },
+]
+  
+---
+<Layout>
+  <NewsSingle 
+    newsItem={newsItem}
+    sidebarItems={sidebarItems}
+    breadcrumbsItems={breadcrumbsItems}
+    showSidebar={true}
+  >
+    <Tabs tabs={tabs} />
+    <p>
+      Акушерский консультативно-диагностический центр оказывает два вида помощи: Дистанционно посредством аудио- и телеконсультаций врачам, оказывающим медицинскую помощь (виртуальный обход); непосредственно пациенту путем выезда (санитарная авиация) в медицинскую организацию, где находится пациент.
+    </p>
+    <EmployeeProfile employee={employeeData} />
+
+    <ProfileReviews reviews={reviewsData} />
+
+    
+    <EmployeesGrid employees={employeesData} />
+  </NewsSingle>
+
+  
+  <ContactForm />
+  <PartnersList />
+</Layout>

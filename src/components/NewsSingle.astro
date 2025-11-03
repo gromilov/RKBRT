@@ -2,7 +2,6 @@
 // src/components/NewsSingle.astro
 import Breadcrumbs from './Breadcrumbs.astro';
 import PostContent from './PostContent.astro';
-
 import NewsSidebar from './NewsSidebar.astro';
 
 interface NewsItem {
@@ -48,12 +47,15 @@ const {
     {breadcrumbsItems && (
         <Breadcrumbs items={breadcrumbsItems} />
     )}
-    <PostContent newsItem={newsItem} />
+    <PostContent newsItem={newsItem} /> 
+        
+    
     <slot />
+    
   </div>
 </div>
 
-<style lang="scss">
+<style lang="scss" is:global>
 .news-single-page {
   display: flex;
   flex-direction: row;
@@ -71,6 +73,8 @@ const {
   &--full {
     max-width: $container-size;
   }
+
+   
 }
 
 /* Адаптивность */
