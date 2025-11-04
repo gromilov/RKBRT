@@ -1,0 +1,429 @@
+---
+// Компонент Contacts.astro
+
+import Button from '../components/ui/Button.astro';
+import BusIcon from '../assets/bus.svg';
+import ManIcon from '../assets/man.svg';
+---
+
+<div class="contacts-section">
+  <!-- Заголовок -->
+  <div class="contacts-header">
+    <h1 class="contacts-title">Контакты</h1>
+  </div>
+
+  <div class="contacts-grid">
+    <!-- Левая колонка - Карта РКБ -->
+    <div 
+      class="contacts-card contacts-card--map"
+      style="background-image: url('/images/map.png');"
+    >
+      <div class="contacts-card__content contacts-card__content--map">
+        <h3 class="contacts-card__title">Карта РКБ</h3>
+      </div>
+    </div>
+
+    <!-- Правая колонка - Контактная информация -->
+    <div class="contacts-card contacts-card--info">
+      <div class="contacts-card__content">
+        <h3 class="contacts-card__title">Контактная информация</h3>
+        <p class="contacts-card__description">
+          Уважаемые пациенты! Личный кабинет пациента – удобный инструмент для управления своими медицинскими данными.
+        </p>
+
+        <div class="contacts-info-grid">
+          <!-- Контакт центр -->
+          <div class="contact-info-group">
+            <div class="contact-info__label">КОНТАКТ ЦЕНТР</div>
+            <a href="tel:+78432312002" class="contact-info__phone">+7 (843) 231-20-02</a>
+            <a href="tel:+78432312003" class="contact-info__phone">+7 (843) 231-20-03</a>
+            <div class="contact-info__schedule">пн-пт 7.00-18.00</div>
+          </div>
+
+          <!-- Платные услуги -->
+          <div class="contact-info-group">
+            <div class="contact-info__label">ПЛАТНЫЕ УСЛУГИ</div>
+            <a href="tel:+78432312090" class="contact-info__phone">+7 (843) 231-20-90</a>
+            <a href="tel:+79270457974" class="contact-info__phone">+7 (927) 045-79-74</a>
+            <div class="contact-info__schedule">пн-пт 8:00 - 18:00, сб 8:00 - 16:00</div>
+          </div>
+
+          <!-- Приемная главного врача -->
+          <div class="contact-info-group">
+            <div class="contact-info__label">ПРИЕМНАЯ ГЛАВНОГО ВРАЧА</div>
+            <a href="tel:+78432316595" class="contact-info__phone">8 (843) 231-65-95</a>
+            <a href="mailto:mz.rkb@tatar.ru" class="contact-info__email">mz.rkb@tatar.ru</a>
+          </div>
+
+          <!-- Приемная директора -->
+          <div class="contact-info-group">
+            <div class="contact-info__label">ПРИЕМНАЯ ДИРЕКТОРА</div>
+            <a href="tel:+78432316595" class="contact-info__phone">8 (843) 231-65-95</a>
+            <a href="mailto:mz.rkb@tatar.ru" class="contact-info__email">mz.rkb@tatar.ru</a>
+          </div>
+        </div>
+
+        <!-- Адрес -->
+        <div class="contacts-address">
+          <div class="contact-info__label">АДРЕС МЕСТОНАХОЖДЕНИЯ ЮРИДИЧЕСКОГО ЛИЦА</div>
+          <div class="contact-info__address">
+            420064, Республика Татарстан, г. Казань, Оренбургский тракт, 138.
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+  <!-- Блок "Как добраться?" -->
+   
+  <div class="transport-section">
+    <h2 class="transport-title">Как добраться?</h2>
+    
+    <div class="transport-tabs">
+      <button class="transport-tab transport-tab--active">На автобусе</button>
+      <button class="transport-tab">На метро</button>
+      <button class="transport-tab">На трамвае</button>
+      <button class="transport-tab">На машине</button>
+    </div>
+
+    <div class="transport-content">
+      <!-- Инструкция 1 -->
+      <div class="transport-step">
+        <div class="step-icon">
+          <BusIcon />
+        </div>
+        <div class="step-content">
+          <h4 class="step-title">Доберитесь до остановки "РКБ"</h4>
+          <p class="step-description">Маршруты: 4, 22, 33, 34, 37, 45</p>
+        </div>
+      </div>
+
+      <!-- Разделитель -->
+      <div class="step-divider">
+        
+      </div>
+
+      <!-- Инструкция 2 -->
+      <div class="transport-step">
+        <div class="step-icon">
+          <ManIcon />
+        </div>
+        <div class="step-content">
+          <h4 class="step-title">Дойдите до места назначения</h4>
+          <p class="step-description">Пройдите 540 метров</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Кнопка навигатора -->
+
+    <Button>Открыть в навигаторе</Button>
+  </div>
+
+  <iframe class="contacts-card contacts-card--yandex-map" src="https://yandex.ru/map-widget/v1/?um=constructor%3Aebabe5390982592388ad451e7a0240761336ffd603b4bc56a2ed0ed169e010ae&amp;source=constructor" width="100%" height="464" frameborder="0"></iframe>
+</div>
+</div>
+
+
+<style lang="scss" is:global>
+.contacts-section {
+  max-width: $container-size;
+  margin: 0 auto;
+  padding: 40px 0;
+}
+
+.contacts-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.contacts-title {
+  font-size: 48px;
+  font-weight: bold;
+  color: $color-text-primary;
+  letter-spacing: -0.01em;
+  margin: 0;
+}
+
+.contacts-grid {
+  display: grid;
+  grid-template-columns: 464px 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.contacts-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: 24px;
+  overflow: hidden;
+  position: relative;
+
+  &--map {
+    background-size: cover;
+    color: white;
+    min-height: 430px;
+  }
+
+  &--yandex-map {
+    overflow: hidden;
+  }
+
+  &--info {
+    background: #DBE7F7;
+    color: $color-text-primary;
+    min-height: 430px;
+  }
+
+  &__content {
+    padding: 32px;
+    // height: 100%;
+    display: flex;
+    flex-direction: column;
+    &--map {
+      margin-top: auto;
+    }
+  }
+
+  &__title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 16px;
+  }
+
+  &__description {
+    font-size: 18px;
+    line-height: 1.4;
+    margin-bottom: 32px;
+    color: $color-text-primary;
+  }
+}
+
+.contacts-info-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.contact-info {
+  &__phone,
+  &__email {
+    display: block;
+    font-size: 18px;
+    color: $color-text-primary;
+    text-decoration: none;
+    margin-bottom: 4px;
+    transition: color 0.2s ease;
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__schedule {
+    font-size: 12px;
+    color: $color-text-muted;
+    margin-top: 8px;
+  }
+
+  &__label {
+    font-size: 12px;
+    color: $color-text-primary;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+}
+.contact-info-group {
+  
+
+  
+}
+
+.contacts-address {
+  margin-top: auto;
+
+  .contact-info__label {
+    font-size: 12px;
+    color: $color-text-primary;
+    font-weight: 600;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .contact-info__address {
+    font-size: 20px;
+    color: $color-text-primary;
+    line-height: 1.4;
+  }
+}
+
+.transport-section {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  border: 1px solid rgba(15, 23, 42, 0.12);
+}
+
+.transport-title {
+  font-size: 24px;
+  font-weight: bold;
+  color: $color-text-primary;
+  margin-bottom: 24px;
+}
+
+.transport-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+}
+
+.transport-tab {
+  padding: 10px 12px;
+  border-radius: 18px;
+  border: 1px solid rgba(15, 23, 42, 0.16);
+  background: white;
+  color: #475569;
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &--active {
+    background: #DBE7F7;
+    color: #1E6BD0;
+    border-color: #DBE7F7;
+  }
+
+  &:hover:not(&--active) {
+    background: #f8fafc;
+  }
+}
+
+.transport-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  
+  margin-bottom: 32px;
+}
+
+.transport-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  flex: 1;
+}
+
+.step-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+  margin-top: 4px;
+  background: $color-primary;
+  border-radius: 50%;
+  color:  white;
+  border: 2px solid $color-border;
+  box-sizing: border-box;
+}
+
+.step-content {
+  flex: 1;
+}
+
+.step-title {
+  font-size: 14px;
+  color: $color-text-primary;
+  margin-bottom: 4px;
+  font-weight: 500;
+}
+
+.step-description {
+  font-size: 12px;
+  color: #475569;
+}
+
+.step-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 60px;
+  margin-left: 12px;
+  margin-top: -36px;
+  border-left: 2px dashed $color-border;
+}
+
+
+@media (max-width: $breakpoint-xl) {
+  .contacts-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+
+  .contacts-info-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .contacts-section {
+    padding: 24px 16px;
+  }
+
+  .contacts-title {
+    font-size: 32px;
+  }
+
+  .contacts-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .transport-content {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .step-divider {
+    height: auto;
+    margin: 8px 0;
+    transform: rotate(90deg);
+    width: 40px;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .contacts-card__content {
+    padding: 24px;
+  }
+
+  .contacts-title {
+    font-size: 24px;
+  }
+
+  .contacts-card__title {
+    font-size: 20px;
+  }
+
+  .contacts-card__description {
+    font-size: 16px;
+  }
+
+  .contact-info-group__phone,
+  .contact-info-group__email,
+  .contact-info__address {
+    font-size: 16px;
+  }
+
+  .transport-tabs {
+    gap: 8px;
+  }
+
+  .transport-tab {
+    padding: 8px 16px;
+    font-size: 11px;
+  }
+}
+</style>
