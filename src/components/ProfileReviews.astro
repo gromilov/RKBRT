@@ -2,6 +2,11 @@
 // src/components/ProfileReviews.astro
 
 import StarIcon from './icons/star.astro';
+import Button from '../components/ui/Button.astro';
+import Modal from '../components/ui/Modal.astro';
+import InputField from '../components/ui/InputField.astro';
+
+
 
 interface Review {
   id: string;
@@ -20,6 +25,12 @@ const { reviews = [] } = Astro.props;
 ---
 
 <section class="profile-reviews">
+    <h2 class="profile-reviews__title">
+         Отзывы
+         <div class="">
+            <Button id="ButtonReviewFormModal">Оставить отзыв</Button>
+         </div>
+    </h2>
   {reviews.map((review) => (
     <article class="review-item" key={review.id}>
       <div class="review-item__header">
@@ -50,21 +61,79 @@ const { reviews = [] } = Astro.props;
   )}
 </section>
 
-<style lang="scss">
+<!-- Модальное окно для отзывов -->
+<Modal id="reviewFormModal">
+  <form class="contact-form">
+      <InputField 
+        label="ФИО"
+        name="name"
+        value="Дмитрий"
+        required
+      />
+      
+      <InputField 
+        label="Номер телефона"
+        name="phone"
+        value="8 800 555 35 35"
+        type="tel"
+        required
+      />
+      
+      <InputField 
+        label="Сообщение (необязательно)"
+        name="message"
+        type="textarea"
+        value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+      />
+
+      <!-- Чекбокс согласия -->
+      <div class="checkbox-group">
+        <input type="checkbox" id="consent" name="consent" required class="checkbox-input" />
+        <label for="consent" class="checkbox-label">
+          Я даю согласие на обработку моих персональных данных
+        </label>
+      </div>
+
+      <!-- Кнопка отправки -->
+      <Button>
+        Оставить отзыв
+      </Button>
+    </form>
+</Modal>
+
+
+<script>
+$(document).ready(function() {
+  $(document).on('click', '#ButtonReviewFormModal', () => {
+    openModal('reviewFormModal');
+  });
+});
+</script>
+
+
+
+<style lang="scss" is:global>
 .profile-reviews {
   display: flex;
   flex-direction: column;
   gap: 32px;
   margin-top: 40px;
+
+  &__title {
+    display: flex;
+    justify-content: space-between;
+    gap: 24px
+  }
 }
 
 .review-item {
   padding-bottom: 32px;
-  
   &:last-child {
     border-bottom: none;
     padding-bottom: 0;
   }
+
+
   
   &__header {
     display: flex;

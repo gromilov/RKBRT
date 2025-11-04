@@ -1,0 +1,238 @@
+---
+
+import StarIcon from '../components/icons/star.astro';
+interface Props {
+  name: string;
+  position: string;
+  department: string;
+  rating: number;
+  reviewsCount: number;
+  imageUrl?: string;
+  className?: string;
+}
+
+const {
+  name,
+  position,
+  department,
+  rating = 5.0,
+  reviewsCount = 0,
+  imageUrl,
+  className = ""
+} = Astro.props;
+
+// Разделяем имя на две строки
+const nameParts = name.split(' ');
+const firstName = nameParts[0] || '';
+const lastName = nameParts.slice(1).join(' ');
+---
+
+<div class={`doctor-card ${className}`}>
+  <!-- Аватар врача -->
+  <div class="doctor-card__avatar">
+    {imageUrl ? (
+      <img 
+        src={imageUrl} 
+        alt={name}
+        class="doctor-card__image"
+        loading="lazy"
+      />
+    ) : (
+      <div class="doctor-card__placeholder">
+        {firstName.charAt(0)}{lastName.charAt(0)}
+      </div>
+    )}
+  </div>
+
+  <!-- Информация о враче -->
+  <div class="doctor-card__info">
+    <h3 class="doctor-card__name">
+      <span class="doctor-card__first-name">{firstName}</span>
+      <span class="doctor-card__last-name">{lastName}</span>
+    </h3>
+    
+    <p class="doctor-card__position">{position}</p>
+    <p class="doctor-card__department">{department}</p>
+    
+    <!-- Рейтинг -->
+    <div class="doctor-card__rating">
+      <div class="doctor-card__stars">
+        {Array.from({ length: 5 }).map((_, index) => (
+          <StarIcon />
+        ))}
+      </div>
+      
+      <div class="doctor-card__rating-info">
+        <span class="doctor-card__rating-value">{rating.toFixed(1)}</span>
+        <span class="doctor-card__reviews-count">({reviewsCount} отзывов)</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.doctor-card {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  padding: 0;
+  background: transparent;
+  max-width: 854px;
+}
+
+.doctor-card__avatar {
+  flex-shrink: 0;
+  width: 270px;
+  height: 270px;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #DBE7F7;
+  position: relative;
+}
+
+.doctor-card__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.doctor-card__placeholder {
+  width: 100%;
+  height: 100%;
+  background: #C4C4C4;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Gilroy', sans-serif;
+  font-size: 72px;
+  font-weight: bold;
+  color: #0F172A;
+}
+
+.doctor-card__info {
+  flex: 1;
+  padding-top: 8px;
+}
+
+.doctor-card__name {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 48px;
+  font-weight: bold;
+  letter-spacing: -0.01em;
+  color: #0F172A;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.doctor-card__first-name,
+.doctor-card__last-name {
+  display: block;
+}
+
+.doctor-card__position,
+.doctor-card__department {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 14px;
+  color: #0F172A;
+  opacity: 0.64;
+  margin: 0 0 8px 0;
+  line-height: 1.4;
+}
+
+.doctor-card__rating {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin-top: 16px;
+}
+
+.doctor-card__stars {
+  display: flex;
+  gap: 4px;
+}
+
+.doctor-card__star {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.doctor-card__rating-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.doctor-card__rating-value {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 14px;
+  color: #171717;
+  font-weight: 500;
+}
+
+.doctor-card__reviews-count {
+  font-family: 'Gilroy', sans-serif;
+  font-size: 14px;
+  color: #525252;
+}
+
+/* Адаптивность */
+@media (max-width: 1024px) {
+  .doctor-card__name {
+    font-size: 40px;
+  }
+  
+  .doctor-card__avatar {
+    width: 240px;
+    height: 240px;
+  }
+}
+
+@media (max-width: 768px) {
+  .doctor-card {
+    flex-direction: column;
+    gap: 24px;
+    max-width: 400px;
+    margin: 0 auto;
+  }
+  
+  .doctor-card__avatar {
+    width: 200px;
+    height: 200px;
+    align-self: center;
+  }
+  
+  .doctor-card__name {
+    font-size: 32px;
+    text-align: center;
+  }
+  
+  .doctor-card__position,
+  .doctor-card__department {
+    text-align: center;
+  }
+  
+  .doctor-card__rating {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .doctor-card__avatar {
+    width: 160px;
+    height: 160px;
+  }
+  
+  .doctor-card__name {
+    font-size: 28px;
+  }
+  
+  .doctor-card__rating {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+</style>

@@ -5,13 +5,13 @@ import ContactForm from '../components/ContactForm.astro';
 import PartnersList from '../components/PartnersList.astro';
 import NewsSingle from '../components/NewsSingle.astro';
 import EmployeesGrid from '../components/EmployeesGrid.astro';
-import EmployeeProfile from '../components/EmployeeProfile.astro';
+import DoctorCard from '../components/DoctorCard.astro';
 import Tabs from '../components/ui/Tabs.astro';
 import ProfileReviews from '../components/ProfileReviews.astro';
 
 // Данные для компонента
 const newsItem = {
-  title: "Акушерский консультативно-диагностический центр",
+  title: "",
   date: "",
   image: "",
   content: ``
@@ -171,11 +171,19 @@ const reviewsData = [
     breadcrumbsItems={breadcrumbsItems}
     showSidebar={true}
   >
+    <DoctorCard
+      name="Юпатов Евгений Юрьевич"
+      position="Заведующий отделением. Акушер-гинеколог"
+      department="Родильное отделение"
+      rating={5.0}
+      reviewsCount={123}
+      imageUrl="/images/employee1.png"
+    />
     <Tabs tabs={tabs} />
     <p>
       Акушерский консультативно-диагностический центр оказывает два вида помощи: Дистанционно посредством аудио- и телеконсультаций врачам, оказывающим медицинскую помощь (виртуальный обход); непосредственно пациенту путем выезда (санитарная авиация) в медицинскую организацию, где находится пациент.
     </p>
-    <EmployeeProfile employee={employeeData} />
+    
 
     <ProfileReviews reviews={reviewsData} />
 
