@@ -1,0 +1,232 @@
+---
+// components/Preloader.astro
+import Logo from "./Logo.astro";
+---
+
+<div id="preloader" class="preloader">
+  <div class="preloader__content">
+    <Logo />
+    <div class="progress-container">
+      <div class="progress-bar">
+        <div class="progress-fill"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const preloader = document.getElementById('preloader');
+  
+  if (!preloader) return;
+  
+  // Добавляем класс loading к body
+  document.body.classList.add('loading');
+  
+  // Скрываем прелоадер когда страница полностью загружена
+  window.addEventListener('load', function() {
+    setTimeout(function() {
+      hidePreloader(preloader);
+    }, 1000);
+  });
+
+  // На всякий случай скрываем прелоадер через 3 секунды
+  setTimeout(function() {
+    if (preloader && preloader.style.visibility !== 'hidden') {
+      hidePreloader(preloader);
+    }
+  }, 3000);
+});
+
+function hidePreloader(preloader) {
+  preloader.style.opacity = '0';
+  preloader.style.visibility = 'hidden';
+  
+  // Убираем класс loading и добавляем loaded
+  document.body.classList.remove('loading');
+  document.body.classList.add('loaded');
+  
+  setTimeout(function() {
+    if (preloader.parentNode) {
+      preloader.remove();
+    }
+  }, 500);
+}
+</script>
+
+<style lang="scss">
+.preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  background: $color-primary;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  color: white;
+
+  &::after,
+  &::before {
+    content: '';
+    position: absolute;
+    background: white;
+    opacity: 0.04;
+    border-radius: 50%;
+  }
+
+  &::after {
+    $size: 400px;
+    right: -($size /2);
+    top: -($size /2);
+    height: $size;
+    width: $size;
+  }
+  &::before {
+    $size: 700px;
+    left: -($size /2);
+    bottom: -($size /2);
+    height: $size;
+    width: $size;
+  }
+
+  &__content {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
+  }
+}
+
+.progress-container {
+  width: 200px;
+  max-width: 80%;
+  margin-top: 2rem;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 100%;
+  background: white;
+  border-radius: 2px;
+  transform: scaleX(0);
+  transform-origin: left center;
+  animation: progressAnimation 3s infinite cubic-bezier(0.7, 0, 0.3, 1);
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 20px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.8), transparent);
+    animation: shimmer 1.5s infinite;
+  }
+}
+
+@keyframes progressAnimation {
+  0% {
+    transform: scaleX(0);
+    animation-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
+  }
+  70% {
+    transform: scaleX(0.95);
+    animation-timing-function: cubic-bezier(0.9, 0, 0.1, 1);
+  }
+  85% {
+    transform: scaleX(0.98);
+    animation-timing-function: cubic-bezier(0.7, 0, 0.1, 1);
+  }
+  95% {
+    transform: scaleX(0.995);
+    animation-timing-function: cubic-bezier(0.5, 0, 0.1, 1);
+  }
+  100% {
+    transform: scaleX(1);
+    animation-timing-function: cubic-bezier(0.3, 0, 0.1, 1);
+  }
+}
+
+/* Альтернативная версия с steps */
+.progress-fill.alternative {
+  animation: progressAnimationSteps 4s infinite;
+}
+
+@keyframes progressAnimationSteps {
+  0% {
+    transform: scaleX(0);
+    animation-timing-function: ease-out;
+  }
+  50% {
+    transform: scaleX(0.8);
+    animation-timing-function: ease-out;
+  }
+  60% {
+    transform: scaleX(0.85);
+    animation-timing-function: ease-in-out;
+  }
+  70% {
+    transform: scaleX(0.9);
+    animation-timing-function: ease-in-out;
+  }
+  80% {
+    transform: scaleX(0.94);
+    animation-timing-function: ease-in-out;
+  }
+  90% {
+    transform: scaleX(0.97);
+    animation-timing-function: ease-in-out;
+  }
+  95% {
+    transform: scaleX(0.985);
+    animation-timing-function: ease-in-out;
+  }
+  100% {
+    transform: scaleX(1);
+    animation-timing-function: ease-in-out;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-20px);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Стили для body */
+body.loading {
+  overflow: hidden;
+}
+
+body.loaded {
+  overflow: auto;
+}
+</style>

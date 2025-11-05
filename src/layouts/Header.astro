@@ -1,5 +1,8 @@
 ---
 import Logo from "./Logo.astro";
+import Preloader from "./Preloader.astro";
+
+
 import TelegramIcon from '../assets/telegram.svg';
 import VkIcon from '../assets/vk.svg';
 import EyeIcon from '../assets/eye.svg';
@@ -9,6 +12,7 @@ import MapIcon from '../assets/map.svg';
 // Компонент Header с меню
 ---
 <div>
+<Preloader />
 <div class="header__offset"></div>
 <header class="header" id="header">
   <div class="header__container">
