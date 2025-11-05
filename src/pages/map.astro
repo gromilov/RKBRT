@@ -1,0 +1,67 @@
+---
+// src/pages/news/single.astro
+import Layout from '../layouts/Layout.astro';
+import ContactForm from '../components/ContactForm.astro';
+import PartnersList from '../components/PartnersList.astro';
+import NewsSingle from '../components/NewsSingle.astro';
+import Select from '../components/ui/SelectField.astro';
+
+// Данные для компонента
+const newsItem = {
+  title: "",
+  subtitle: "",
+  date: "",
+  image: "",
+  content: ""
+}
+    
+---
+
+<Layout>
+  <NewsSingle 
+    newsItem={newsItem}
+    showSidebar={false}
+  >
+    <h1 class="text-center">Интерактивная карта</h1> 
+    <p class="text-center">Выберите корпус, где вы сейчас, и корпус в который вам нужно - на карте будет построен маршрут. </p>
+    <form class="map-form-grid">
+        <Select 
+            label="Откуда"
+            name="from"
+            placeholder="Выберите терминал"
+            options={[
+                { value: '1', label: 'Терминал №1' },
+                { value: '2', label: 'Терминал №2' },
+                { value: '3', label: 'Терминал №2' }
+            ]}
+            required
+        />
+
+        <Select 
+            label="Куда"
+            name="to"
+            placeholder="Выберите терминал"
+            options={[
+                { value: '1', label: 'Терминал №1' },
+                { value: '2', label: 'Терминал №2' },
+                { value: '3', label: 'Терминал №2' }
+            ]}
+            required
+        />
+    </form>
+  	
+  </NewsSingle>
+  <ContactForm />
+  <PartnersList />
+</Layout>
+
+
+
+<style lang="scss" is:global>
+.map-form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding-top: 24px;
+}
+</style>

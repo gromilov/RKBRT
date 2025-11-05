@@ -1,0 +1,97 @@
+---
+const {
+  label,
+  name,
+  value = '',
+  required = false,
+  placeholder = '',
+  options = []
+} = Astro.props;
+---
+
+<div class="input-field">
+  <label class="input-label" for={name}>
+    {label}
+  </label>
+  
+  <select
+    id={name}
+    name={name}
+    class="input input--select"
+    {required}
+  >
+    {placeholder && (
+      <option value="" disabled selected={!value}>
+        {placeholder}
+      </option>
+    )}
+    
+    {options.map(option => (
+      <option 
+        value={option.value} 
+        selected={option.value === value}
+      >
+        {option.label}
+      </option>
+    ))}
+  </select>
+  
+  <div class="input-underline"></div>
+</div>
+
+<style lang="scss" is:global>
+.input-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  position: relative;
+}
+
+.input-label {
+  font-size: 14px;
+  color: currentColor;
+  opacity: 0.64;
+  line-height: $line-height-normal;
+}
+
+.input {
+  font-size: 16px;
+  color: currentColor;
+  background: transparent;
+  border: none;
+  padding: 8px 0;
+  line-height: $line-height-normal;
+  
+  &--select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 20px;
+    cursor: pointer;
+  }
+  
+  &:focus {
+    outline: none;
+    
+    & ~ .input-underline {
+      opacity: 1;
+    }
+  }
+}
+
+.input-underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  opacity: 0.16;
+  transition: opacity $transition-fast;
+  
+  .input:focus ~ & {
+    opacity: 1;
+  }
+}
+</style>

@@ -161,6 +161,7 @@ const newsData = {
     justify-content: center;
     gap: 16px;
     padding-bottom: 48px;
+    flex-wrap: wrap;
     
   }
 
@@ -300,6 +301,12 @@ const newsData = {
   .news-page-card--regular .news-page-card__image {
     display: none;
   }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
   
   .news-page__title {
     font-size: 32px;
@@ -380,6 +387,11 @@ const newsData = {
 }
 
 @media (max-width: $breakpoint-sm) {
+  .news-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
   .news-page {
     padding: 32px 16px;
   }

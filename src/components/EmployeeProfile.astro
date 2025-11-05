@@ -216,10 +216,8 @@ const { employee } = Astro.props;
       gap: 32px;
     }
     
-    &__photo {
-      width: 250px;
-      height: 375px;
-    }
+    
+    
   }
 }
 
@@ -229,7 +227,8 @@ const { employee } = Astro.props;
     
     &__card {
       padding: 32px 24px;
-      
+      flex-direction: column;
+      gap: 0;
       &::before,
       &::after {
         display: none;
@@ -239,13 +238,22 @@ const { employee } = Astro.props;
     &__content {
       flex-direction: column;
       gap: 24px;
+      padding-right: 0;
+    }
+
+    &__info {
+      
+    }
+
+    &__card {
+      
     }
     
     &__photo {
       width: 100%;
-      max-width: 302px;
-      height: 300px;
-      margin: 0 auto;
+      max-width: 100%;
+      height: 375px;
+      border-radius: 24px;
     }
     
     &__name {

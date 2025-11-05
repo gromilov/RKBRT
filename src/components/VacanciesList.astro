@@ -120,7 +120,7 @@ const vacanciesData = [
 .vacancies-page {
   max-width: $container-size;
   margin: 0 auto;
-  padding: 40px 0;
+  padding: 40px 16px;
 
   &__title {
     font-size: 48px;
@@ -145,7 +145,7 @@ const vacanciesData = [
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  padding: 0 12px;
+  // padding: 0 12px;
 }
 
 .vacancy-card {
@@ -247,7 +247,7 @@ const vacanciesData = [
 /* Адаптивность */
 @media (max-width: $breakpoint-xxl) {
   .vacancies-page {
-    padding: 40px 24px;
+    padding: 40px 16px;
   }
   
   .vacancies-grid {
@@ -299,7 +299,7 @@ const vacanciesData = [
 
 @media (max-width: $breakpoint-sm) {
   .vacancies-page {
-    padding: 24px 12px;
+    padding: 24px 16px;
   }
   
   .vacancy-card {

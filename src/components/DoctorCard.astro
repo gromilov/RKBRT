@@ -70,7 +70,7 @@ const lastName = nameParts.slice(1).join(' ');
   </div>
 </div>
 
-<style>
+<style lang="scss" is:global>
 .doctor-card {
   display: flex;
   gap: 32px;
@@ -110,6 +110,7 @@ const lastName = nameParts.slice(1).join(' ');
 }
 
 .doctor-card__info {
+  width: 100%;
   flex: 1;
   padding-top: 8px;
 }
@@ -200,8 +201,8 @@ const lastName = nameParts.slice(1).join(' ');
   }
   
   .doctor-card__avatar {
-    width: 200px;
-    height: 200px;
+    idth: 100%;
+    height: 360px;
     align-self: center;
   }
   
@@ -222,8 +223,8 @@ const lastName = nameParts.slice(1).join(' ');
 
 @media (max-width: 480px) {
   .doctor-card__avatar {
-    width: 160px;
-    height: 160px;
+    width: 100%;
+    height: 360px;
   }
   
   .doctor-card__name {
