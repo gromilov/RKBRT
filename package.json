@@ -4,12 +4,13 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "build": "astro build && node format-html.js",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
     "astro": "^5.15.2",
+    "html-formatter": "^0.1.9",
     "sass": "^1.93.2",
     "vite-plugin-html": "^3.2.2"
   }
