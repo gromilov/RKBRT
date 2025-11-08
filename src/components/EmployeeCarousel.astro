@@ -78,7 +78,7 @@ const employees = [
   </div>
 </div>
 
-<script>
+<script is:inline>
 // Инициализация карусели
 document.addEventListener('DOMContentLoaded', function() {
   const carousel = document.querySelector('.employee-carousel');
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" is:global>
 .employee-carousel {
   position: relative;
   width: 100%;
