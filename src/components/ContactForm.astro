@@ -5,6 +5,7 @@ import SubmitButton from './ui/SubmitButton.astro';
 
 <div class="contact-section">
   <div class="contact-container">
+  <div class="contact-container__card">
     <!-- Заголовок и описание -->
     <div class="contact-info">
       <h2 class="contact-title">Остались вопросы?<br>Свяжитесь с нами</h2>
@@ -53,6 +54,7 @@ import SubmitButton from './ui/SubmitButton.astro';
       </SubmitButton>
     </form>
   </div>
+  </div>
 </div>
 
 <style lang="scss" is:global>
@@ -67,10 +69,12 @@ import SubmitButton from './ui/SubmitButton.astro';
 }
 
 .contact-container {
+ 
+  @include container;
+  &__card {
+  padding: 64px;  
   background: $color-primary;
   border-radius: 24px;
-  padding: 64px;  
-  max-width: $container-size;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -104,6 +108,7 @@ import SubmitButton from './ui/SubmitButton.astro';
     transform: translateY(-50%);
   }
 }
+}
 
 .contact-info {
   display: flex;
@@ -112,7 +117,6 @@ import SubmitButton from './ui/SubmitButton.astro';
 }
 
 .contact-title {
-  
   font-size: 40px;
   font-weight: $font-weight-bold;
   line-height: $line-height-tight;
@@ -121,7 +125,6 @@ import SubmitButton from './ui/SubmitButton.astro';
 }
 
 .contact-description {
-  
   font-size: 18px;
   line-height: $line-height-relaxed;
   margin: 0;
@@ -165,23 +168,23 @@ import SubmitButton from './ui/SubmitButton.astro';
 
 /* Адаптивность */
 @media (max-width: $breakpoint-lg) {
-  .contact-container {
+  .contact-container__card {
     grid-template-columns: 1fr;
     gap: 48px;
   }
   
-  .contact-section {
-    padding: 48px 32px;
-  }
+  // .contact-section {
+  //   padding: 48px 32px;
+  // }
 }
 
 @media (max-width: $breakpoint-md) {
-  .contact-section {
-    padding: 32px 24px;
-    border-radius: 16px;
-  }
+  // .contact-section {
+  //   padding: 32px 24px;
+  //   border-radius: 16px;
+  // }
 
-  .contact-container {
+  .contact-container__card {
     padding: 48px 16px;
   }
   
@@ -195,9 +198,9 @@ import SubmitButton from './ui/SubmitButton.astro';
 }
 
 @media (max-width: $breakpoint-sm) {
-  .contact-section {
-    padding: 24px 16px;
-  }
+  // .contact-section {
+  //   padding: 24px 16px;
+  // }
   
   .contact-title {
     font-size: 28px;

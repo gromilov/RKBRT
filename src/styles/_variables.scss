@@ -71,9 +71,8 @@ $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 $breakpoint-xxl: 1440px;
 
-$container-size: 1416px;
+$container-size: 1440px;
 $container-post-size: 860px;
-
 
 // Анимации
 $transition-fast: 0.15s ease;
@@ -87,6 +86,12 @@ $z-index-sticky: 1020;
 $z-index-modal: 1030;
 $z-index-popover: 1040;
 $z-index-tooltip: 1050;
-
-
 $header-height: 98px;
+
+@mixin container {
+  max-width: $container-size;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: auto;
+  margin-right: auto;
+}

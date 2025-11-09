@@ -88,9 +88,11 @@ const newsData = {
 
 <style lang="scss" is:global>
 .news-section {
-  max-width: $container-size;
-  margin: 0 auto;
   padding: 40px 0;
+  margin: 0 auto;
+  @include container;
+  
+  
 
   &__title {
     
@@ -122,9 +124,10 @@ const newsData = {
   position: relative;
   background: white;
   text-decoration: none;
-
+  display: block;
   &--featured {
-    height: 576px;
+    max-height: 576px;
+    height: 100%;
     
     .news-card__image {
       position: absolute;
@@ -262,6 +265,11 @@ const newsData = {
 
 /* Адаптивность */
 @media (max-width: $breakpoint-xxl) {
+  
+}
+
+
+@media (max-width: $breakpoint-md) {
   .news-section {
     padding: 40px 24px;
   }
@@ -310,54 +318,7 @@ const newsData = {
   }
 }
 
-@media (max-width: $breakpoint-xxl) {
-  .news-section {
-    padding: 40px 24px;
-  }
-  
-  .news-container {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
 
-  .news-card--featured {
-    height: 400px;
-  }
-}
-
-@media (max-width: $breakpoint-md) {
-  .news-card--regular .news-card__image {
-    display: none;
-  }
-  
-  .news-section__title {
-    font-size: 32px;
-    margin-bottom: 32px;
-  }
-
-  .news-card--featured {
-    height: 300px;
-
-    .news-card__content {
-      padding: 24px;
-    }
-
-    .news-card__title {
-      font-size: 24px;
-    }
-  }
-
-  .news-card--regular {
-    grid-template-columns: 120px 1fr;
-    height: auto;
-    min-height: 140px;
-    gap: 12px;
-
-    .news-card__title {
-      font-size: 16px;
-    }
-  }
-}
 
 @media (max-width: $breakpoint-sm) {
   .news-section {

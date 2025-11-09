@@ -37,9 +37,9 @@ const partners = [
 .partners-container {
   overflow: hidden;
   position: relative;
-  max-width: $container-size;
   margin: 0 auto;
   padding: 64px 12px;
+  @include container;
 }
 
 .partners-scroll {
@@ -94,9 +94,9 @@ const partners = [
 
 /* Адаптивность */
 @media (max-width: $breakpoint-md) {
-  .partners-section {
-    padding: 0 16px;
-  }
+  // .partners-section {
+  //   padding: 0 16px;
+  // }
   
   .partners-list {
     gap: 24px;

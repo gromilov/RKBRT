@@ -112,124 +112,13 @@ const reviewsData = [
   </div>
 </Modal>
 
-<script>
-$(document).ready(function(){
-  // Инициализация карусели
-  $('.reviews-carousel').owlCarousel({
-    margin: 12,
-    nav: false,
-    dots: true,
-    dotsContainer: '#customDots',
-    responsive: {
-      0: {
-        items: 1
-      },
-      768: {
-        items: 2
-      },
-      1024: {
-        items: 3
-      }
-    },
-    onInitialized: function(event) {
-      updateProgress(event);
-      checkTextOverflow();
-    },
-    onTranslated: function(event) {
-      updateProgress(event);
-      checkTextOverflow();
-    },
-    onResized: function(event) {
-      checkTextOverflow();
-    }
-  });
 
-  // Кастомные кнопки навигации
-  $('.reviews-button--next').click(function() {
-    $('.reviews-carousel').trigger('next.owl.carousel');
-  });
-  
-  $('.reviews-button--prev').click(function() {
-    $('.reviews-carousel').trigger('prev.owl.carousel');
-  });
-
-  // Функция для обновления прогресса
-  function updateProgress(event) {
-    const current = event.item.index + 1;
-    const total = event.item.count;
-    const progress = (current / total) * 100;
-    $('.pagination-progress').css('width', progress + '%');
-  }
-
-  // Кастомные точки
-  $('.reviews-carousel').on('initialized.owl.carousel', function(event) {
-    const dots = $('#customDots');
-    dots.empty();
-    
-    for (let i = 0; i < event.item.count; i++) {
-      dots.append('<button class="owl-dot"><span></span></button>');
-    }
-    
-    $('.owl-dot').each(function(index) {
-      $(this).click(function() {
-        $('.reviews-carousel').trigger('to.owl.carousel', [index]);
-      });
-    });
-  });
-
-  // Проверка переполнения текста и показ кнопки "Читать полностью"
-  function checkTextOverflow() {
-    $('.review-card').each(function() {
-      const $textElement = $(this).find('.review-card__text');
-      const $readMoreBtn = $(this).find('.review-card__read-more');
-      
-      // Проверяем, превышает ли текст 7 строк
-      if (isTextOverflowing($textElement[0])) {
-        $readMoreBtn.show();
-      } else {
-        $readMoreBtn.hide();
-      }
-    });
-  }
-
-  // Функция проверки переполнения текста
-  function isTextOverflowing(element) {
-    const lineHeight = parseInt(getComputedStyle(element).lineHeight);
-    const maxHeight = lineHeight * 7; // 7 строк
-    return element.scrollHeight > maxHeight;
-  }
-
-  // Обработчик кнопки "Читать полностью"
-  $(document).on('click', '.review-card__read-more', function() {
-    const $card = $(this).closest('.review-card');
-    const author = $card.find('.review-card__author').text();
-    const rating = $card.find('.review-card__rating').html();
-    const text = $card.find('.review-card__text').html();
-    
-    openReviewModal(author, rating, text);
-  });
-
-  // Функция открытия модального окна с отзывом
-  function openReviewModal(author, rating, text) {
-    $('#reviewModal .modal-review-author').text(author);
-    $('#reviewModal .modal-review-rating').html(rating);
-    $('#reviewModal .modal-review-text').html(text);
-    openModal('reviewModal');
-  }
-
-  // Проверка при загрузке и изменении размера окна
-  $(window).on('load resize', function() {
-    setTimeout(checkTextOverflow, 100);
-  });
-});
-</script>
 
 <style lang="scss" is:global>
 .reviews-section {
-  max-width: $container-size;
   padding: 40px 0;
+  @include container;
   margin: 0 auto;
-
   &__title {
     font-size: 40px;
     font-weight: $font-weight-bold;

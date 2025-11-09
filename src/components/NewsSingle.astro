@@ -59,7 +59,7 @@ const {
 .news-single-page {
   display: flex;
   flex-direction: row;
-  max-width: $container-size;
+  @include container;
   margin: 0 auto;
   margin-bottom: 48px;
 }
@@ -71,7 +71,7 @@ const {
   flex: 1;
   
   &--full {
-    max-width: $container-size;
+    @include container;
   }
 
    

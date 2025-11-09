@@ -38,7 +38,7 @@ try {
         indent_size: 2,
         indent_char: ' ',
         max_char: 0,
-        unformatted: ['code', 'pre', 'em', 'strong', 'span'],
+        unformatted: ['code', 'pre', 'em', 'strong', 'span', 'script'],
         indent_inner_html: false,
         preserve_newlines: true,
         break_chained_methods: false,

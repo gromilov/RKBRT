@@ -14,45 +14,6 @@ import Logo from "./Logo.astro";
   </div>
 </div>
 
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const preloader = document.getElementById('preloader');
-  
-  if (!preloader) return;
-  
-  // Добавляем класс loading к body
-  document.body.classList.add('loading');
-  
-  // Скрываем прелоадер когда страница полностью загружена
-  window.addEventListener('load', function() {
-    setTimeout(function() {
-      hidePreloader(preloader);
-    }, 1000);
-  });
-
-  // На всякий случай скрываем прелоадер через 3 секунды
-  setTimeout(function() {
-    if (preloader && preloader.style.visibility !== 'hidden') {
-      hidePreloader(preloader);
-    }
-  }, 3000);
-});
-
-function hidePreloader(preloader) {
-  preloader.style.opacity = '0';
-  preloader.style.visibility = 'hidden';
-  
-  // Убираем класс loading и добавляем loaded
-  document.body.classList.remove('loading');
-  document.body.classList.add('loaded');
-  
-  setTimeout(function() {
-    if (preloader.parentNode) {
-      preloader.remove();
-    }
-  }, 500);
-}
-</script>
 
 <style lang="scss" is:global>
 .preloader {
