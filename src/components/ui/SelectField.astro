@@ -64,7 +64,7 @@ const {
   
   &--select {
     appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='currentColor' d='M6 8L2 4h8z'/%3E%3C/svg%3E");
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 16 16'%3E%3Cpath d='M4 6L8 10L12 6' fill='none' stroke='%230F172A' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-position: right center;
     padding-right: 20px;
@@ -73,7 +73,6 @@ const {
   
   &:focus {
     outline: none;
-    
     & ~ .input-underline {
       opacity: 1;
     }
@@ -92,6 +91,90 @@ const {
   
   .input:focus ~ & {
     opacity: 1;
+  }
+}
+
+/* Стилизация опций выпадающего списка */
+select.input--select option {
+  background: #fff;
+  color: #333;
+  padding: 12px 16px;
+  font-size: 14px;
+  border-bottom: 1px solid #f0f0f0;
+  
+  &:hover {
+    background: #f8f9fa;
+  }
+  
+  &:checked {
+    background: #007bff;
+    color: white;
+  }
+  
+  &:disabled {
+    background: #f8f9fa;
+    color: #6c757d;
+    font-style: italic;
+  }
+}
+
+/* Для браузеров, которые поддерживают стилизацию выпадающего списка */
+select.input--select:focus option:checked {
+  background: #007bff linear-gradient(0deg, #007bff 0%, #007bff 100%);
+  color: white;
+}
+
+/* Стилизация группы опций */
+select.input--select optgroup {
+  background: #f8f9fa;
+  color: #6c757d;
+  font-weight: 600;
+  font-size: 12px;
+  padding: 8px 16px;
+}
+
+select.input--select optgroup option {
+  background: white;
+  color: #333;
+  padding-left: 24px;
+}
+
+/* Альтернативный подход с кастомным селектом */
+.custom-select-wrapper {
+  position: relative;
+}
+
+.custom-select-options {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  display: none;
+}
+
+.custom-select-option {
+  padding: 12px 16px;
+  cursor: pointer;
+  border-bottom: 1px solid #f0f0f0;
+  
+  &:hover {
+    background: #f8f9fa;
+  }
+  
+  &.selected {
+    background: #007bff;
+    color: white;
+  }
+  
+  &:last-child {
+    border-bottom: none;
   }
 }
 </style>

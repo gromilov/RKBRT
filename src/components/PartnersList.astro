@@ -23,6 +23,12 @@ const partners = [
             <img src={partner.src} alt={partner.alt} class="partner-logo" />
           </a>
         ))}
+        {/* Дублируем список для бесшовной анимации */}
+        {partners.map((partner, index) => (
+          <a href={partner.url} class="partner-item" key={`duplicate-${index}`}>
+            <img src={partner.src} alt={partner.alt} class="partner-logo" />
+          </a>
+        ))}
       </div>
     </div>
   </div>
@@ -30,7 +36,6 @@ const partners = [
 
 <style is:global lang="scss">
 .partners-section {
-  
   
 }
 
@@ -43,13 +48,28 @@ const partners = [
 }
 
 .partners-scroll {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none; /* Firefox */
-  -ms-overflow-style: none; /* IE and Edge */
+  overflow: hidden;
+  position: relative;
   
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari and Opera */
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  &::before {
+    left: 0;
+    background: linear-gradient(to right, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+  }
+  
+  &::after {
+    right: 0;
+    background: linear-gradient(to left, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
   }
 }
 
@@ -60,6 +80,18 @@ const partners = [
   padding: 16px 0;
   min-width: min-content;
   height: 75px;
+  
+  /* Анимация бегущей строки */
+  animation: scroll 30s linear infinite;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% / 2));
+  }
 }
 
 .partner-item {
@@ -82,8 +114,6 @@ const partners = [
   height: auto;
   width: auto;
   object-fit: contain;
-//   filter: grayscale(100%);
-//   opacity: 0.7;
   transition: all 0.3s ease;
 }
 
@@ -92,18 +122,28 @@ const partners = [
   opacity: 1;
 }
 
+/* Пауза анимации при наведении */
+.partners-scroll:hover .partners-list {
+  animation-play-state: paused;
+}
+
 /* Адаптивность */
 @media (max-width: $breakpoint-md) {
-  // .partners-section {
-  //   padding: 0 16px;
-  // }
-  
   .partners-list {
     gap: 24px;
   }
   
   .partner-logo {
     max-width: 150px;
+  }
+  
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(calc(-100% / 2));
+    }
   }
 }
 
@@ -114,6 +154,13 @@ const partners = [
   
   .partner-logo {
     max-width: 120px;
+  }
+  
+  .partners-scroll {
+    &::before,
+    &::after {
+      width: 50px;
+    }
   }
 }
 </style>
